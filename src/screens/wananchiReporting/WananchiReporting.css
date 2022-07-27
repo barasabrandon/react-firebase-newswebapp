@@ -1,0 +1,154 @@
+.wananchireporting {
+  margin: 5rem;
+  background-color: whitesmoke;
+  height: fit-content;
+}
+
+.wananchireporting-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.wananchireporting-become-one-container {
+  background-color: white;
+  width: 30rem;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.wananchireporting-become-one-click-container {
+  text-decoration: none;
+  color: blue;
+}
+
+.wananchireporting-categories-container {
+  height: 9rem;
+}
+
+.wananchireporting-become-one-click-container:hover {
+  color: orange;
+}
+
+.wananchireporting-content-div {
+  width: 100%;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 2rem;
+}
+
+.wananchireporting-content-div > div {
+  background-color: white;
+}
+
+.wananchireporting-content-container {
+  padding: 1rem;
+}
+
+.wananchreporting-audio {
+  margin: 1rem;
+}
+.wananchreporting-content-audio {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  background-color: whitesmoke;
+  height: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.wananchi-reporting-selected-category {
+  background-color: orangered;
+  margin: 3px;
+  font-size: large;
+  color: white;
+  font-weight: 500;
+  padding: 3px;
+}
+
+/* Video Card  */
+
+.wananch-video {
+  margin: 0.1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid lightgray;
+}
+
+.wananch-video-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+}
+
+.wananch-video-url-container {
+  height: 6rem;
+  width: 10rem;
+}
+
+.wananch-video-url-container > video {
+  height: 6rem;
+  width: 10rem;
+  object-fit: cover;
+}
+
+.wananch-video-description-container {
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+}
+
+/* Text  */
+
+.wananch-text {
+  margin: 0.1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid lightgray;
+}
+
+.wananch-text-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+}
+
+.wananch-text-url-container {
+  height: 6rem;
+  width: 10rem;
+}
+
+.wananch-text-url-container > img {
+  height: 6rem;
+  width: 10rem;
+  object-fit: cover;
+}
+
+.wananch-text-description-container {
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 600px) {
+  .wananchireporting {
+    margin: 1rem;
+  }
+
+  .wananchireporting-become-one-container {
+    width: 20rem;
+  }
+
+  .wananchireporting-content-div {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .wananch-video-container {
+    grid-template-columns: 1fr;
+  }
+}

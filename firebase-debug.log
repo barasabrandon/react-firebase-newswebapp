@@ -1,0 +1,21 @@
+[debug] [2022-01-09T22:45:30.820Z] ----------------------------------------------------------------------
+[debug] [2022-01-09T22:45:30.861Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\HP\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init functions
+[debug] [2022-01-09T22:45:30.862Z] CLI Version:   10.0.1
+[debug] [2022-01-09T22:45:30.862Z] Platform:      win32
+[debug] [2022-01-09T22:45:30.862Z] Node Version:  v14.17.3
+[debug] [2022-01-09T22:45:30.975Z] Time:          Mon Jan 10 2022 01:45:30 GMT+0300 (East Africa Time)
+[debug] [2022-01-09T22:45:30.975Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-01-09T22:45:31.048Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-01-09T22:45:31.049Z] > authorizing via signed-in user (barasabrandon@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  E:\TECHNOLOGY\REACTPROJECTS\citizen-news-clone
+

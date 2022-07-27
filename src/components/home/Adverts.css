@@ -1,0 +1,66 @@
+.adverts {
+  margin: 10px 140px;
+  height: 90px;
+  background-color: white;
+  border: 1px solid lightgray;
+  flex: 1;
+  position: relative;
+  height: fit-content;
+}
+
+.adverts__textParagraph__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.adverts__text {
+  margin-top: 30px;
+  padding: 20px;
+}
+
+.adverts__buttons {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+}
+
+.adverts__openButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 20px;
+  margin-right: 5px;
+  background-color: blue;
+  color: white;
+  text-transform: uppercase;
+  font-size: 15px;
+  border-radius: 2px;
+}
+
+.adverts__close {
+  display: flex !important;
+  align-items: center !important;
+  position: sticky !important;
+  top: 0;
+}
+
+/* SMALL SCREEN */
+
+@media (max-width: 600px) {
+  .adverts {
+    height: 200px;
+    width: 95%;
+    margin: 10px 10px;
+  }
+
+  .adverts__textParagraph__title {
+    font-size: 1.005rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+}

@@ -1,0 +1,89 @@
+.sample-news-page-container {
+  background-color: white;
+  height: fit-content;
+  color: black;
+  margin: 20px;
+  padding: 10px;
+}
+
+.sample-news-page-article {
+  font-size: 1.2rem;
+  letter-spacing: 1.1px;
+  line-height: 30px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.sample-news-page-about-article {
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.sample-news-page-about-article-category {
+  margin-right: 20px;
+  padding: 5px;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  color: white;
+  background-color: rgb(237, 7, 7);
+}
+
+.sample-news-page-about-article-author {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-right: 20px;
+}
+
+.sample-news-page-about-article-author-name {
+  color: rgb(237, 7, 7);
+}
+
+.sample-news-page-about-article-period {
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+.sample-news-page-article-heading {
+  height: fit-content;
+  margin-top: 20px;
+  display: flex;
+  gap: 100px;
+  margin-bottom: 20px;
+}
+
+.sample-news-page-article-image-container {
+  height: 300px;
+  width: 400px;
+}
+
+.sample-news-page-article-image-container > img {
+  height: 300px;
+  width: 400px;
+}
+
+@media (max-width: 600px) {
+  .sample-news-page-about-article {
+    height: fit-content;
+    gap: 5px;
+    flex-direction: column;
+  }
+
+  .sample-news-page-article-image-container {
+    height: 200px;
+    width: 320px;
+  }
+
+  .sample-news-page-article-image-container > img {
+    height: 200px;
+    width: 320px;
+  }
+
+  .sample-news-page-article-heading {
+    flex-direction: column;
+    gap: 40px;
+    margin-bottom: 15px;
+  }
+}

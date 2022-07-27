@@ -1,0 +1,100 @@
+.live-tv-screen {
+  margin: 10% 25%;
+  background-color: white;
+  height: 15rem;
+  width: 40rem;
+}
+
+.live-tv-screen-container {
+  height: 15rem;
+  width: 40rem;
+  position: relative;
+}
+
+.live-tv-screen-image-container {
+  height: 15rem;
+  width: 40rem;
+}
+
+.live-tv-screen-image-container > img {
+  height: 15rem;
+  width: 40rem;
+}
+
+.live-tv-screen-description-container {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  color: white;
+  height: 15rem;
+  width: 40rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.live-tv-screen-footer-container {
+  background-color: rgb(238, 120, 46);
+  width: 8rem;
+  height: 2rem;
+  padding: 5px;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.live-tv-screen-footer-container:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+  transition: 2000ms;
+}
+.live-tv-screen-description-container-p {
+  padding: 1rem;
+}
+
+.live-tv-screen-description-container-title {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 400;
+}
+
+/* SMALL SCREEN */
+
+@media (max-width: 600px) {
+  .live-tv-screen {
+    margin: 10% 5%;
+    height: 23rem;
+    width: 20.5rem;
+  }
+
+  .live-tv-screen-container {
+    height: 23rem;
+    width: 20.5rem;
+    position: relative;
+  }
+
+  .live-tv-screen-image-container {
+    height: 23rem;
+    width: 20.5rem;
+  }
+
+  .live-tv-screen-image-container > img {
+    height: 23rem;
+    width: 20.5rem;
+  }
+
+  .live-tv-screen-description-container {
+    height: 23rem;
+    width: 20.5rem;
+  }
+
+  .live-tv-screen-footer-container {
+    height: 1.4rem;
+  }
+
+  .live-tv-screen-description-container-p {
+    font-size: 1.13rem;
+  }
+}

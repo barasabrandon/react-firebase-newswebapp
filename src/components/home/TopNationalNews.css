@@ -1,0 +1,62 @@
+.outer__container {
+  margin: 20px 20px;
+  height: max-content;
+  padding: 10px;
+  background-color: white;
+}
+
+.inner__container {
+  display: flex;
+  gap: 30px;
+  background-color: #f6f5f5;
+  height: max-content;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.topNational__news__image__container {
+  height: 250px;
+  width: 900px;
+}
+
+.topNational__news__image {
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+}
+
+.topNational__news__content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* SMALL SCREENS */
+@media (max-width: 600px) {
+  .news__container {
+    display: grid;
+    padding: 2px;
+    grid-template-columns: 1fr;
+  }
+
+  .inner__container {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .outer__container {
+    background-color: #f6f5f5;
+    margin: 0px 0px;
+    height: max-content;
+    padding: 0px;
+  }
+
+  .topNational__news__image__container {
+    height: 250px;
+    width: 300px;
+  }
+
+  .topNational__news__image {
+  }
+}
