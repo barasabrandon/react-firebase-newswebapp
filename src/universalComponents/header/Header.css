@@ -1,7 +1,6 @@
 .header {
   display: flex;
   align-items: center;
-  /* background-color: blue; */
   background-image: linear-gradient(to right, blue, rgb(255, 94, 0));
   height: 70px;
   color: white;

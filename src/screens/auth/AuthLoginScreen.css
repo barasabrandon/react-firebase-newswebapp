@@ -1,0 +1,149 @@
+.background {
+  width: 26.875rem;
+  height: 32.5rem;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+}
+.background .shape {
+  height: 12.5rem;
+  width: 12.5rem;
+  position: absolute;
+  border-radius: 50%;
+}
+.shape:first-child {
+  background: linear-gradient(#1845ad, #23a2f6);
+  left: -5rem;
+  top: -5rem;
+}
+.shape:last-child {
+  background: linear-gradient(to right, #ff512f, #f09819);
+  right: -1.875rem;
+  bottom: -5rem;
+}
+form {
+  height: 35.5rem;
+  width: 25rem;
+  background-color: rgba(255, 255, 255, 0.13);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 30%;
+  left: 50%;
+  border-radius: 0.625rem;
+  backdrop-filter: blur(0.625rem);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  padding: 3.124rem 2.1875rem;
+}
+form * {
+  font-family: 'Poppins', sans-serif;
+  /* color: #ffffff; */
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none;
+}
+form h3 {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 2.625rem;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-top: 1.875rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+input {
+  display: block;
+  height: 3.124rem;
+  width: 100%;
+  /* background-color: rgba(255, 255, 255, 0.07); */
+  border-radius: 3px;
+  padding: 0 0.625rem;
+  margin-top: 8px;
+  font-size: 0.875rem;
+  font-weight: 300;
+}
+::placeholder {
+  color: #e5e5e5;
+}
+button {
+  margin-top: 3.124rem;
+  width: 100%;
+  /* background-color: #ffffff; */
+  color: #080710;
+  padding: 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.social {
+  margin-top: 1.875rem;
+  display: flex;
+}
+.social div {
+  background: red;
+  width: 13.124rem;
+  border-radius: 3px;
+  padding: 5px 0.625rem 0.625rem 5px;
+  background-color: blue;
+  color: white;
+  text-align: center;
+}
+.social div:hover {
+  /* background-color: rgba(255, 255, 255, 0.47); */
+  background-color: lightblue;
+  color: black;
+  cursor: pointer;
+}
+
+.social .fb {
+  margin-left: 25px;
+}
+.social i {
+  margin-right: 4px;
+}
+
+/* SMALL SCREENS  */
+@media (max-width: 600px) {
+  .background {
+    width: 16.875rem;
+    height: 22.5rem;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+  }
+  .background .shape {
+    height: 5.5rem;
+    width: 5.5rem;
+    position: absolute;
+    border-radius: 50%;
+  }
+  form {
+    height: 25.5rem;
+    width: 18rem;
+    padding: 0.124rem 1.1875rem;
+  }
+
+  form h3 {
+    font-size: 1rem;
+    line-height: 1.625rem;
+  }
+
+  label {
+    display: block;
+    margin-top: 0.875rem;
+  }
+  input {
+    height: 2.124rem;
+  }
+  button {
+    margin-top: 1.124rem;
+    padding: 10px 0;
+  }
+}

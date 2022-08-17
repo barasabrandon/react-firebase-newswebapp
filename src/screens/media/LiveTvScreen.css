@@ -44,11 +44,16 @@
   text-align: center;
   border-radius: 20px;
 }
+.live-tv-screen-footer-container > a {
+  text-decoration: none;
+  color: white;
+}
 
 .live-tv-screen-footer-container:hover {
   transform: scale(1.2);
   cursor: pointer;
   transition: 2000ms;
+  color: white;
 }
 .live-tv-screen-description-container-p {
   padding: 1rem;

@@ -1,7 +1,5 @@
-import React from 'react';
-
-import './EntertainmentScreen.css';
+import React, { useState } from 'react';
 
 export default function EntertainmentScreen() {
-  return <div>EntertainmentScreen</div>;
+  return <div></div>;
 }

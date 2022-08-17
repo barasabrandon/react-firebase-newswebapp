@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Categories from '../../components/news/Categories';
 import NewsCard from '../../components/news/NewsCard';
+import NotFoundItems from '../../components/news/NotFoundItems';
+import { requestData } from '../../features/newsSlice';
+import db from '../../firebase';
 
 import './NewsScreen.css';
 
 export default function NewsScreen() {
+  const { categories, selectedItem } = useSelector((state) => state.news);
+  const dispatch = useDispatch();
+
+  const [collectionData, setCollectionData] = useState('');
+
+  useEffect(() => {
+    dispatch(requestData(2));
+  }, []);
+
+  useEffect(() => {
+    if (selectedItem !== '') {
+      db.collection(`${selectedItem}`)
+        .get()
+        .then((snapshot) => setCollectionData(snapshot.docs));
+    }
+  }, [selectedItem]);
+
   return (
     <div className="news-screen">
       <div className="news-screen-container">
@@ -13,43 +35,31 @@ export default function NewsScreen() {
           </div>
           <div>
             <ul>
-              <li>
-                <span>Icon </span>
-                <span>Trending</span>
-              </li>
-              <li className="news-screen-categories-selected-container">
-                <span>Icon </span>
-                <span>National news</span>
-              </li>
-              <li>
-                <span>Icon </span>
-                <span>World News</span>
-              </li>
-              <li>
-                <span>Icon </span>
-                <span>Counties</span>
-              </li>
-              <li>
-                <span>Icon </span>
-                <span>Wananchi Reporting News</span>
-              </li>
+              {categories.map(({ selected, name, icon, id }) => (
+                <Categories
+                  selected={selected}
+                  name={name}
+                  icon={icon}
+                  id={id}
+                  key={id}
+                />
+              ))}
             </ul>
           </div>
         </div>
         <div className="news-screen-news-container">
           <div className="news-screen-news-content-container">
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
+            {collectionData == '' ? (
+              <div className="loading-animation">
+                <img src="/animations/loadingAnimation.gif" alt="Loading..." />
+              </div>
+            ) : collectionData == 'not-items-found' ? (
+              <NotFoundItems />
+            ) : (
+              collectionData.map((doc, index) => (
+                <NewsCard key={index} itemData={doc.data()} docId={doc.id} />
+              ))
+            )}
           </div>
         </div>
       </div>

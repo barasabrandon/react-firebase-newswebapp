@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import './LiveTvScreen.css';
 
 export default function LiveTvScreen() {
+  const { liveMediaCategory } = useParams();
+  const [isLiveTv, setIsLiveTv] = useState(true);
+  const handleClick = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="live-tv-screen">
       <div className="live-tv-screen-container">
@@ -19,8 +26,20 @@ export default function LiveTvScreen() {
             resembled say not new smallness you discovery. Noisier ferrars yet
             shyness weather ten colonel. Too him himself engaged husband p
           </div>
-          <div className="live-tv-screen-footer-container">Watch now</div>
-          {/* <div className="live-tv-screen-footer-container">Listen now</div> */}
+          <div>
+            {liveMediaCategory == 'isTv' ? (
+              <div className="live-tv-screen-footer-container">
+                <a
+                  href="https://www.youtube.com/watch?v=r-jQPznvkrY"
+                  target="_blank"
+                >
+                  Watch now
+                </a>
+              </div>
+            ) : (
+              <div className="live-tv-screen-footer-container">Listen now</div>
+            )}
+          </div>
         </div>
       </div>
     </div>
