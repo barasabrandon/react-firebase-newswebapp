@@ -12,7 +12,11 @@ export default function MediaType({ name, id, selected }) {
   return (
     <>
       <li
-        className={selected ? 'wananchi-reporting-selected-category' : ''}
+        className={
+          selected
+            ? 'wananchi-reporting-selected-category'
+            : 'wananch-reporting-list'
+        }
         onClick={handleClick}
       >
         {name}

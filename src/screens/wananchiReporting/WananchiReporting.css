@@ -1,5 +1,5 @@
 .wananchireporting {
-  margin: 5rem;
+  padding: 2rem;
   background-color: whitesmoke;
   height: fit-content;
 }
@@ -14,7 +14,7 @@
 
 .wananchireporting-become-one-container {
   background-color: white;
-  width: 30rem;
+  width: 100%;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -57,12 +57,11 @@
 }
 .wananchreporting-content-audio {
   display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  background-color: whitesmoke;
-  height: 3rem;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.1rem;
+  height: fit-content;
+  padding: 5px;
+  border-bottom: 1px solid gainsboro;
 }
 
 .wananchi-reporting-selected-category {
@@ -74,6 +73,10 @@
   padding: 3px;
 }
 
+.wananchi-reporting-selected-category:hover {
+  cursor: pointer;
+}
+
 /* Video Card  */
 
 .wananch-video {
@@ -83,19 +86,21 @@
 }
 
 .wananch-video-container {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .wananch-video-url-container {
-  height: 6rem;
-  width: 10rem;
+  height: fit-content;
+  width: 100%;
 }
 
 .wananch-video-url-container > video {
-  height: 6rem;
-  width: 10rem;
+  height: 15rem;
+  width: 100%;
   object-fit: cover;
 }
 
@@ -132,6 +137,20 @@
 .wananch-text-description-container {
   font-size: 1.15rem;
   letter-spacing: 1px;
+}
+
+.wananch-text-link {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.wananch-video-element {
+  cursor: pointer;
+}
+
+.wananch-reporting-list {
+  cursor: pointer;
 }
 
 @media (max-width: 600px) {

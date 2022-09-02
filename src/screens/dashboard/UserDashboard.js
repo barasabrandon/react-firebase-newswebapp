@@ -1,20 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import MUIDatableComponent from '../../components/dashboard/MUIDatableComponent';
 
 export default function UserDashboard() {
   return (
-    <div>
-      <ul>
-        <li>
-          <span>Wananchi Reporting Upload Form</span>{' '}
-          <span>
-            <Link to="/form/wananchi-form/video">Video</Link>
-          </span>{' '}
-          <span>
-            <Link to="/form/wananchi-form/audio">Audio</Link>
-          </span>
-        </li>
-      </ul>
-    </div>
+    <>
+      <MUIDatableComponent />
+    </>
   );
 }

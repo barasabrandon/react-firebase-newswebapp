@@ -1,9 +1,12 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom';
 
 import AdvertScreen from './screens/AdvertScreen';
-import AuthLoginScreen from './screens/auth/AuthLoginScreen';
-import HomeScreen from './screens/home/HomeScreen';
 import LiveTvScreen from './screens/media/LiveTvScreen';
 import VideosScreen from './screens/media/VideosScreen';
 import NewsScreen from './screens/news/NewsScreen';
@@ -14,8 +17,14 @@ import SampleNewsPage from './screens/SampleNewsPage';
 import WananchiReportingScreen from './screens/wananchiReporting/WananchiReportingScreen';
 import Layout from './Layout';
 import CreationForm from './screens/Forms/CreationForm';
-import WananchiFormVideos from './screens/Forms/WananchiFormVideos';
-import UserDashboard from './screens/dashboard/UserDashboard';
+import PodcastSamplePage from './screens/podcasts/PodcastSamplePage';
+import MediaUpload from './screens/Forms/MediaUpload';
+import BasicModal from './components/BasicModal';
+import DashboardLayout from './DashboardLayout';
+import TestMUIDatables from './screens/dashboard/TestMUIDatables';
+import UsersDashboard from './screens/dashboard/UsersDashboard';
+import DashboardLandingPage from './screens/dashboard/landingPage/DashboardLandingPage';
+import CkEditorTest from './screens/Forms/CkEditorTest';
 
 function App() {
   return (
@@ -25,13 +34,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/aderts" element={<AdvertScreen />} />
             <Route path="/news" element={<NewsScreen />} />
-            <Route path="/creation-form" element={<CreationForm />} />
-            <Route
-              path="/form/wananchi-form/:mediaType"
-              exact
-              element={<WananchiFormVideos />}
-            />
-            <Route path="/news/:category/:id" element={<SampleNewsPage />} />
+            <Route path="/:screen/:category/:id" element={<SampleNewsPage />} />
             <Route path="/videos" element={<VideosScreen />} />
             <Route
               path="/live-media/:liveMediaCategory"
@@ -44,11 +47,31 @@ function App() {
             <Route path="/entertainment" element={<EntertainmentScreen />} />
             <Route path="/sports" element={<SportsScreen />} />
             <Route path="/podcasts" element={<PodcastScreen />} />
-            <Route path="/users/dashboard" element={<UserDashboard />} />
-            <Route path="/" element={<HomeScreen />} />
+            <Route
+              path="/podcasts/:podcastCategory/:podcastsubCollectionId/:podcastTitle/:podcastId"
+              element={<PodcastSamplePage />}
+            />
+            <Route path="/dialogue-boxes" element={<BasicModal to="/news" />} />
+            <Route path="/" element={<Navigate to="/news" />} />
           </Route>
 
-          <Route path="/auth-login" element={<AuthLoginScreen />} />
+          {/* DASHBORAD  */}
+          <Route element={<DashboardLayout />}>
+            <Route path="/dashboard" element={<DashboardLandingPage />} />
+            <Route path="/dashboard/users" element={<UsersDashboard />} />
+            <Route
+              path="/dashboard/media-upload/:mediaType"
+              exact
+              element={<MediaUpload />}
+            />
+            <Route path="/dashboard/creation-form" element={<CreationForm />} />
+            <Route
+              path="/dashboard/test-datables"
+              element={<TestMUIDatables />}
+            />
+            <Route path="/dashboard/test-ckeditor" element={<CkEditorTest />} />
+          </Route>
+          {/* <Route path="/auth-login" element={<AuthLoginScreen />} /> */}
         </Routes>
       </div>
     </Router>

@@ -6,35 +6,27 @@ import TextWananchiReport from '../../components/wananchreporting/TextWananchiRe
 import VideoWananchReporting from '../../components/wananchreporting/VideoWananchReporting';
 
 import './WananchiReporting.css';
-import url from '../../audioFiles/testaudioFile.mp3';
+import db from '../../firebase';
+import LoadingAnimation1 from '../../components/LoadingAnimation1';
+import JoinUs from '../../components/wananchreporting/JoinUs';
 
 export default function WananchiReportingScreen() {
   const { mediaType } = useSelector((state) => state.wananchiReporting);
   const filteredItem = mediaType.find((item) => item.selected == true);
+  const [wananchiData, setWananchiData] = useState('');
   const [mediaContent, setMediaContent] = useState('text');
 
   useEffect(() => {
     setMediaContent(filteredItem.name);
-  }, [filteredItem]);
+    db.collection(`${filteredItem.category}`)
+      .get()
+      .then((snapshot) => setWananchiData(snapshot.docs));
+  }, [filteredItem, mediaContent]);
 
   return (
     <div className="wananchireporting">
       <div className="wananchireporting-container">
-        <div className="wananchireporting-become-one-container">
-          <div>Become one</div>
-          <div>
-            <p>
-              The prepare is ye nothing blushes up brought. Or as gravity
-              pasture limited evening on. Wicket around beauty say she.
-              <a
-                href="/#"
-                className="wananchireporting-become-one-click-container"
-              >
-                Click here
-              </a>
-            </p>
-          </div>
-        </div>
+        <JoinUs />
         <div className="wananchireporting-content-div">
           <div className="wananchireporting-categories-container">
             <p className="wananchreporting-categories-title">Categories</p>
@@ -47,11 +39,40 @@ export default function WananchiReportingScreen() {
 
           <div className="wananchireporting-content-container">
             {mediaContent === 'Text' ? (
-              <TextWananchiReport />
+              wananchiData === '' ? (
+                // <h5>Loading...</h5>
+                <div className="loading-animation">
+                  <img src="/animations/fromNow.gif" alt="Loading..." />
+                </div>
+              ) : (
+                wananchiData.map((doc) => (
+                  <TextWananchiReport
+                    key={doc.id}
+                    docId={doc.id}
+                    itemData={doc.data()}
+                  />
+                ))
+              )
             ) : mediaContent === 'Video' ? (
-              <VideoWananchReporting />
+              wananchiData === '' ? (
+                // <h5>Loading...</h5>
+                <LoadingAnimation1 />
+              ) : (
+                wananchiData.map((doc) => (
+                  <VideoWananchReporting
+                    key={doc.id}
+                    docId={doc.id}
+                    itemData={doc.data()}
+                  />
+                ))
+              )
+            ) : wananchiData === '' ? (
+              // <h5>Loading...</h5>
+              <LoadingAnimation1 />
             ) : (
-              <AudioWananch url={url} />
+              wananchiData.map((doc, index) => (
+                <AudioWananch key={index} itemData={doc.data()} />
+              ))
             )}
           </div>
         </div>

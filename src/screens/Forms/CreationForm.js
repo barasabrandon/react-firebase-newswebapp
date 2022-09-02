@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import db, { firebaseTimestamp, storage } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { Toast } from 'primereact/toast';
 
 import Swal from 'sweetalert2';
 
@@ -9,20 +10,13 @@ import './CreationForm.css';
 import { Navigate } from 'react-router-dom';
 
 export default function CreationForm() {
-  const [formData, setFormData] = useState({
-    category: '',
-    title: '',
-    text: '',
-  });
-
-  const [imageFile, setImageFile] = useState(null);
+  const [category, setCategory] = useState('');
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
   const [progressPercent, setProgressPercent] = useState(0);
   const [imgUrl, setImgUrl] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const toast = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,17 +37,12 @@ export default function CreationForm() {
       willClose: () => {
         clearInterval(timerInterval);
       },
-    }).then((result) => {
-      /* Read more about handling dismissals below */
-      if (result.dismiss === Swal.DismissReason.timer) {
-        console.log('I was closed by the timer');
-      }
     });
 
     const file = e.target[3]?.files[0];
     const date = new Date().getTime();
-    const imageName = `${formData.title}-${date}.${file.name.split('.')[1]}`;
-    const storageRef = ref(storage, `files/${formData.category}/brandon`);
+    const imageName = `${title}-${date}.${file.name.split('.')[1]}`;
+    const storageRef = ref(storage, `files/${category}/${title}`);
 
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
@@ -68,18 +57,28 @@ export default function CreationForm() {
         console.log(error);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) =>
-          setImgUrl(downloadUrl)
+        getDownloadURL(uploadTask.snapshot.ref).then(
+          (downloadUrl) => setImgUrl(downloadUrl),
+          console.log(imgUrl)
         );
       }
     );
 
-    db.collection(formData.category).add({
-      ...formData,
-      imageFile: imageName,
-      imgUrl: imgUrl,
-      createdAt: firebaseTimestamp,
-    });
+    if (imgUrl !== '') {
+      db.collection(category).add({
+        title: title,
+        text: text,
+        imageFile: imageName,
+        imgUrl: imgUrl,
+        createdAt: firebaseTimestamp,
+      });
+    } else {
+      toast.current.show({
+        severity: 'error',
+        summary: 'Error Message!',
+        detail: 'Error Uploading Image',
+      });
+    }
   };
 
   const optionCategories = [
@@ -97,10 +96,10 @@ export default function CreationForm() {
   return (
     <>
       {getLocalUser ? (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="creation-form">
           <div className="form-title">
             <div>
-              <h5 style={{ color: 'orange' }}>National News</h5>
+              <h5 style={{ color: 'orange' }}>News Article </h5>
             </div>
             <div>
               <small style={{ color: 'orange' }}>By: Brandon Wanambisi</small>
@@ -113,10 +112,10 @@ export default function CreationForm() {
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
-              placeholder="Article title..."
+              placeholder="Article Title..."
               name="title"
-              value={formData.title}
-              onChange={handleChange}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div className="mb-3">
@@ -124,9 +123,9 @@ export default function CreationForm() {
             <select
               className="form-select"
               aria-label="Default select example"
-              value={formData.category}
+              value={category}
               name="category"
-              onChange={handleChange}
+              onChange={(e) => setCategory(e.target.value)}
             >
               <option value="">Select news Category</option>
               {optionCategories.map((item, index) => (
@@ -143,8 +142,8 @@ export default function CreationForm() {
               id="exampleFormControlTextarea1"
               rows="5"
               name="text"
-              value={formData.text}
-              onChange={handleChange}
+              value={text}
+              onChange={(e) => setText(e.target.value)}
               placeholder="Article content"
             ></textarea>
           </div>
@@ -160,13 +159,23 @@ export default function CreationForm() {
               name="image"
             />
           </div>
-          <button type="submit" className="btn btn-success mb-2 mt-2 ">
-            Submit
-          </button>
+          <div className="buttons-container">
+            <div>
+              <button type="submit" className="btn btn-primary mb-2 mt-2 ">
+                Clear
+              </button>
+            </div>
+            <div>
+              <button type="submit" className="btn btn-success mb-2 mt-2 ">
+                Submit
+              </button>
+            </div>
+          </div>
         </form>
       ) : (
         <Navigate to="/auth-login" />
       )}
+      <Toast ref={toast} />
     </>
   );
 }

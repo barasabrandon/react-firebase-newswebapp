@@ -1,0 +1,82 @@
+.wananchi-form-video {
+  width: 40rem;
+  height: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid green;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.wananchi-form-video-input-text {
+  margin-bottom: 1rem;
+  border: none;
+  border-bottom: 2px solid blue;
+  color: black;
+}
+
+.wananchi-form-video-input-textggg *::after {
+  display: block;
+  height: 3.124rem;
+  width: 100%;
+  border-radius: 3px;
+  padding: 0 0.625rem;
+  margin-top: 8px;
+  font-size: 0.875rem;
+  font-weight: 300;
+  border: none;
+}
+
+.wananchi-form-video-input-submit {
+  background-color: orange;
+  color: white;
+  font-size: 1.3rem;
+  border: none;
+}
+
+.wananchi-form-video-input-file-label {
+  margin: 1rem;
+}
+
+.wananchi-form-video-header {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.wananchi-form-video-header-category {
+  font-size: 0.6rem;
+}
+
+.media-upload-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wananchi-form-video-header-text {
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+}
+
+/* SMALL SCREEN */
+
+@media (max-width: 600px) {
+  .wananchi-form-video {
+    width: 25rem;
+    height: 30rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5rem;
+  }
+
+  .wananchi-form-video-form-element {
+    width: 25rem;
+    height: 30rem;
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+  }
+}

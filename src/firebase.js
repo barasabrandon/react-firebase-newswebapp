@@ -23,8 +23,24 @@ const googleProvider = new firebase.auth.GoogleAuthProvider();
 const signInWithGoogle = () => {
   auth
     .signInWithPopup(googleProvider)
-    .then((res) => {
-      console.log(res.user);
+    .then(async (res) => {
+      const existingUser = await db
+        .collection('users')
+        .get()
+        .then((snapshot) =>
+          snapshot.docs.find((doc) =>
+            console.log(doc.data().email === res.user.displayName)
+          )
+        );
+
+      if (!existingUser) {
+        db.collection('users').add({
+          name: res.user.displayName,
+          email: res.user.email,
+          imgUrl: res.user.photoURL,
+          status: 'user',
+        });
+      }
       localStorage.setItem('user-profile', JSON.stringify(res.user));
     })
     .catch((error) => {
@@ -34,5 +50,12 @@ const signInWithGoogle = () => {
 
 const storage = firebase.storage();
 
-export { auth, provider, storage, signInWithGoogle, firebaseTimestamp };
+export {
+  auth,
+  provider,
+  storage,
+  signInWithGoogle,
+  googleProvider,
+  firebaseTimestamp,
+};
 export default db;

@@ -1,0 +1,10 @@
+.usersdashboard-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.usersdashboard-screen-navbar {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}

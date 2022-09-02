@@ -39,6 +39,7 @@
   width: 90px;
   height: 50px;
   object-fit: cover;
+  color: blue;
 }
 
 .header__content__liveTv {

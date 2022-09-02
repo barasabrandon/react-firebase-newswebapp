@@ -15,7 +15,7 @@ export default function NewsScreen() {
   const [collectionData, setCollectionData] = useState('');
 
   useEffect(() => {
-    dispatch(requestData(2));
+    dispatch(requestData(1));
   }, []);
 
   useEffect(() => {

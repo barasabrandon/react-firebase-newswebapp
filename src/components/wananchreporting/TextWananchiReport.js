@@ -1,19 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default function TextWananchiReport() {
+export default function TextWananchiReport({ itemData, docId }) {
   return (
     <>
       <div className="wananch-text">
         <div className="wananch-text-container">
           <div className="wananch-text-url-container">
-            <img src="/images/news-images/kovacic.jpeg" alt="No image" />
+            <img src={itemData.imgUrl} alt={itemData.category} />
           </div>
           <div className="wananch-text-description-container">
-            <small>By John Doe</small>
-            <p>
-              Eat welcomed any husbands moderate. Led was misery played waited
-              almost cousin living
-            </p>
+            <small>By newsApp Reporter</small>
+            <Link
+              to={`/wananchi-reporting/${itemData.category}/${docId}`}
+              className="wananch-text-link"
+            >
+              <p>{itemData.title}</p>
+            </Link>
           </div>
         </div>
       </div>
@@ -21,21 +24,4 @@ export default function TextWananchiReport() {
   );
 }
 
-{
-  /* <>
-<div className="wananch-video">
-  <div className="wananch-video-container">
-    <div className="wananch-video-url-container">
-      <video src="/videos/testingVideo.mp4" loop muted />
-    </div>
-    <div className="wananch-video-description-container">
-      <small>By John Doe</small>
-      <p>
-        Eat welcomed any husbands moderate. Led was misery played waited
-        almost cousin living
-      </p>
-    </div>
-  </div>
-</div>
-</> */
-}
+// /:screen/:category/:id

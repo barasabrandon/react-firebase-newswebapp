@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
 
 import './Header.css';
 import HeaderSmallScreen from '../../components/home/HeaderSmallScreen';
@@ -23,11 +24,7 @@ export default function Header() {
     <>
       <div className="header">
         <div className="header__logo">
-          <img
-            src="images/citizen-digital-logo.png"
-            className="header__logo__img"
-            alt=""
-          />
+          <img src="images/logo.jpg" className="header__logo__img" alt="" />
         </div>
         <div className="header-content-container">
           <Link to="/news" style={linkStyles}>
@@ -43,12 +40,7 @@ export default function Header() {
               Wananchi Reporting
             </div>
           </Link>
-          <Link to="/entertainment" style={linkStyles}>
-            <div className="header__content__entertainment">Entertainment</div>
-          </Link>
-          <Link to="/sports" style={linkStyles}>
-            <div className="header__content__sports">Sports</div>
-          </Link>
+
           <Link to="/podcasts" style={linkStyles}>
             <div className="header__content__podcasts">Podcasts</div>
           </Link>
@@ -72,11 +64,7 @@ export default function Header() {
         </div>
         {/* SMALL SCREEN MENU ICON */}
         <div className="header__small__menu__icon">
-          <img
-            src="images/citizen-digital-logo.png"
-            className="header__small__menu__icon__img"
-            alt="header icon"
-          />
+          <MenuIcon />
         </div>
       </div>
 

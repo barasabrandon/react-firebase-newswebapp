@@ -12,56 +12,46 @@ function General() {
           </div>
           <div className="general__news__container__content">
             <div className="general__news__container__header">
-              <span>
-                {' '}
-                <button>News</button>
-              </span>
-              <span>4 days ago</span>
+              <div className="general__news__category">News</div>
+              <div>4 days ago</div>
             </div>
             <div className="general__news__container__header__title">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatum vero quasi num
+              Voluptatum vero quasi num...
             </div>
           </div>
         </div>
-
         <div className="general__news__container">
           <div className="general__news__container__image">
             <img src="/images/news-images/kovacic.jpeg" alt="" />
           </div>
           <div className="general__news__container__content">
             <div className="general__news__container__header">
-              <span>
-                {' '}
-                <button>News</button>
-              </span>
-              <span>4 days ago</span>
+              <div className="general__news__category">News</div>
+              <div>4 days ago</div>
             </div>
             <div className="general__news__container__header__title">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatum vero quasi num
+              Voluptatum vero quasi num...
             </div>
           </div>
         </div>
-
         <div className="general__news__container">
           <div className="general__news__container__image">
             <img src="/images/news-images/kovacic.jpeg" alt="" />
           </div>
           <div className="general__news__container__content">
             <div className="general__news__container__header">
-              <span>
-                {' '}
-                <button>News</button>
-              </span>
-              <span>4 days ago</span>
+              <div className="general__news__category">News</div>
+              <div>4 days ago</div>
             </div>
             <div className="general__news__container__header__title">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatum vero quasi num
+              Voluptatum vero quasi num...
             </div>
           </div>
         </div>
+
         <hr />
       </div>
     </>

@@ -1,13 +1,29 @@
-form {
-  margin-top: 10rem;
+.creation-form {
   height: fit-content;
+  width: 80%;
+  box-shadow: 0 0 20px rgba(8, 7, 16, 0.6);
+  padding: 10px;
+  border-radius: 4px;
 }
 .form-title {
   color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+h5 {
+  text-transform: uppercase;
 }
 
 @media (max-width: 600px) {
-  form {
+  .creation-form {
     margin-top: 0rem;
     margin-bottom: 5rem !important;
   }

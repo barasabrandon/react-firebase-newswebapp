@@ -4,12 +4,9 @@ import { Navigate, useParams } from 'react-router-dom';
 import db, { firebaseTimestamp, storage } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
-import './WananchiFormVideos.css';
-
 export default function WananchiFormVideos() {
   const [description, setDescription] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
-  const [audioUrl, setAudioUrl] = useState('');
   const [progressPcnt, setProgressPcnt] = useState(0);
   const { mediaType } = useParams();
 
@@ -19,8 +16,10 @@ export default function WananchiFormVideos() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const storageRef = ref(storage, `files/wananchi-reporting/audio`);
+    const storageRef = ref(storage, `files/wananchi-reporting/videos`);
+
     const file = e.target[1].files[0];
+
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
       'state_changed',
@@ -35,29 +34,18 @@ export default function WananchiFormVideos() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) =>
-          mediaType === 'Video'
-            ? setVideoUrl(downloadUrl)
-            : setAudioUrl(downloadUrl)
+          setVideoUrl(downloadUrl)
         );
       }
     );
-    if (mediaType === 'Video') {
-      db.collection('Wananchi Reporting Video').add({
-        description,
-        videoUrl: videoUrl,
-        uploaderEmail: getLocalUser?.email,
-        uploaderName: getLocalUser?.displayName,
-        createdAt: firebaseTimestamp,
-      });
-    } else {
-      db.collection('Wananchi Reporting Audio').add({
-        description,
-        audioUrl: audioUrl,
-        uploaderEmail: getLocalUser?.email,
-        uploaderName: getLocalUser?.displayName,
-        createdAt: firebaseTimestamp,
-      });
-    }
+    db.collection('Wananchi Reporting Video').add({
+      description,
+      videoUrl: videoUrl,
+      uploaderEmail: getLocalUser?.email,
+      uploaderName: getLocalUser?.displayName,
+      createdAt: firebaseTimestamp,
+    });
+
     setDescription('');
   };
 
@@ -86,11 +74,11 @@ export default function WananchiFormVideos() {
                 className="wananchi-form-video-input-file-label"
                 htmlFor="files"
               >
-                {mediaType === 'video' ? 'Video' : 'Audio'} file *
+                Video file *
               </label>
               <input
                 id="files"
-                accept={mediaType === 'video' ? 'video/*' : 'audio/*'}
+                accept="video/*"
                 className="wananchi-form-video-input-file"
                 type="file"
                 placeholder="Video description..."
@@ -113,4 +101,3 @@ export default function WananchiFormVideos() {
     </>
   );
 }
-// `Uploading... ${progressPcnt}%`

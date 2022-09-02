@@ -1,25 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 
-export default function VideoCard({ url }) {
-  const vidRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const handlePlayVideo = (e) => {
-    e.preventDefault();
-    isPlaying ? vidRef.current.play() : vidRef.current.pause();
-    setIsPlaying(!isPlaying);
-  };
-
+export default function VideoCard({ data }) {
   return (
     <div className="videos-screen-video-container">
       <div className="videos-screen-video-content-container">
-        <video src={url} ref={vidRef} />
+        <video controls>
+          <source src={data.videoUrl} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
       <div className="videos-screen-video-description-container">
-        <span>
-          Conveying or northward offending admitting perfectly my. Colonel
-          gravity get thought.
-        </span>{' '}
-        <span onClick={handlePlayVideo}>{isPlaying ? 'Pause' : 'Play'}</span>
+        <p>{data.description}</p>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 .videos-screen {
-  margin: 1rem;
-  background-color: whitesmoke;
+  background-color: gainsboro;
   height: fit-content;
+  padding: 1rem;
 }
 
 .videos-screen-container {
@@ -12,7 +12,8 @@
 
 .videos-screen-video-container {
   background-color: white;
-  height: 15rem;
+  /* height: fit-content; */
+  height: 23rem;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
@@ -22,16 +23,32 @@
 .videos-screen-video-content-container {
   height: 70%;
   width: 18.5rem;
+  position: relative;
 }
 
 .videos-screen-video-description-container {
-  font-size: 1.23rem;
+  font-size: 1rem;
 }
 
 .videos-screen-video-content-container > video {
   object-fit: cover;
   width: 18.5rem;
   height: 100%;
+}
+
+.play-container {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  top: 40%;
+  left: 40%;
+  cursor: pointer;
 }
 
 /* SMALL SCREEN */
