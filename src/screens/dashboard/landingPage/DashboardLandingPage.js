@@ -7,16 +7,11 @@ import './DashboardLandingPage.css';
 
 import UserStatics from '../../../components/dashboard/landingPage/UserStatics';
 import ContainerHeader from '../../../components/dashboard/landingPage/ContainerHeader';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+import { useSelector } from 'react-redux';
 
 export default function DashboardLandingPage() {
+  const { userProfile } = useSelector((state) => state.auth);
+
   return (
     <div className="dashboardlandingpage-screen">
       <div className="dashboardlandingpage-container">

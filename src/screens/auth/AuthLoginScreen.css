@@ -1,4 +1,8 @@
-.auth-screen {
+.auth-login-screen {
+  padding: 5%;
+}
+
+/* .auth-screen {
   padding: 10rem;
 }
 
@@ -60,7 +64,7 @@ input {
   font-size: 0.875rem;
   font-weight: 300;
   border: none;
-  /* border-bottom: 1px solid blue; */
+  border-bottom: 1px solid blue;
 }
 
 .password-container {
@@ -143,7 +147,7 @@ button {
   height: 50px;
 }
 
-/* SMALL SCREENS  */
+SMALL SCREENS 
 @media (max-width: 600px) {
   .auth-screen {
     padding: 1rem;
@@ -186,4 +190,4 @@ button {
     margin-top: 1.124rem;
     padding: 10px 0;
   }
-}
+} */

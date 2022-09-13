@@ -77,76 +77,81 @@ export default function MediaUpload() {
 
   return (
     <>
-      <div className="wananchi-form-video">
-        <div className="wananchi-form-video-form">
-          <form
-            action=""
-            onSubmit={handleSubmit}
-            className="wananchi-form-video-form-element"
-          >
-            <div className="wananchi-form-video-header">
-              <div className="wananchi-form-video-header-text">
-                Upload Media{' '}
+      {(getLocalUser.status === 'wananchi-reporter') |
+      (getLocalUser.status === 'admin') ? (
+        <div className="wananchi-form-video">
+          <div className="wananchi-form-video-form">
+            <form
+              action=""
+              onSubmit={handleSubmit}
+              className="wananchi-form-video-form-element"
+            >
+              <div className="wananchi-form-video-header">
+                <div className="wananchi-form-video-header-text">
+                  Upload Media{' '}
+                </div>
+                <div>
+                  <small className="wananchi-form-video-header-category">
+                    {mediaType === 'exclusiveVideo'
+                      ? 'Exclusive Videos'
+                      : mediaType === 'video'
+                      ? 'Wananchi Reporting Video'
+                      : 'Wananchi Reporting Audio'}
+                  </small>
+                </div>
               </div>
               <div>
-                <small className="wananchi-form-video-header-category">
-                  {mediaType === 'exclusiveVideo'
-                    ? 'Exclusive Videos'
-                    : mediaType === 'video'
-                    ? 'Wananchi Reporting Video'
-                    : 'Wananchi Reporting Audio'}
-                </small>
+                <InputText
+                  id="password"
+                  type="text"
+                  className="w-full mb-3"
+                  placeholder="Description..."
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
               </div>
-            </div>
-            <div>
-              <InputText
-                id="password"
-                type="text"
-                className="w-full mb-3"
-                placeholder="Description..."
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
 
-            <div>
-              <label
-                className="wananchi-form-video-input-file-label"
-                htmlFor="files"
-              >
-                {(mediaType === 'exclusiveVideo') | (mediaType === 'video')
-                  ? 'Video'
-                  : 'Audio'}{' '}
-                file *
-              </label>
-              <input
-                id="files"
-                accept={
-                  (mediaType === 'exclusiveVideo') | (mediaType === 'video')
-                    ? 'video/*'
-                    : 'audio/*'
-                }
-                className="wananchi-form-video-input-file"
-                type="file"
-              />
-            </div>
+              <div>
+                <label
+                  className="wananchi-form-video-input-file-label"
+                  htmlFor="files"
+                >
+                  {(mediaType === 'exclusiveVideo') | (mediaType === 'video')
+                    ? 'Video'
+                    : 'Audio'}{' '}
+                  file *
+                </label>
+                <input
+                  id="files"
+                  accept={
+                    (mediaType === 'exclusiveVideo') | (mediaType === 'video')
+                      ? 'video/*'
+                      : 'audio/*'
+                  }
+                  className="wananchi-form-video-input-file"
+                  type="file"
+                />
+              </div>
 
-            <div className="media-upload-btns">
-              <div>
-                <Button variant="outlined">Clear</Button>
+              <div className="media-upload-btns">
+                <div>
+                  <Button variant="outlined">Clear</Button>
+                </div>
+                <div>
+                  {/* className="wananchi-form-video-input-submit" */}
+                  <Button type="submit" variant="outlined">
+                    {(progressPcnt === 0) | (progressPcnt === 100)
+                      ? 'Submit '
+                      : `Uploading... ${progressPcnt}%`}
+                  </Button>
+                </div>
               </div>
-              <div>
-                {/* className="wananchi-form-video-input-submit" */}
-                <Button type="submit" variant="outlined">
-                  {(progressPcnt === 0) | (progressPcnt === 100)
-                    ? 'Submit '
-                    : `Uploading... ${progressPcnt}%`}
-                </Button>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
+      ) : (
+        <Navigate to="/unauthorized-page" />
+      )}
     </>
   );
 }

@@ -1,0 +1,26 @@
+.news-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.newsdashboard-screen-navbar {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-container {
+  height: 30rem;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.table-container-div {
+  overflow: auto;
+}
+
+.newsdashboard_control_icons:hover {
+  cursor: pointer;
+}

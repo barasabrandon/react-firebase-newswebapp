@@ -3,11 +3,13 @@ import React, { useState, useRef } from 'react';
 import db, { firebaseTimestamp, storage } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { Toast } from 'primereact/toast';
-
 import Swal from 'sweetalert2';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import EditIcon from '@mui/icons-material/Edit';
 
 import './CreationForm.css';
-import { Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function CreationForm() {
   const [category, setCategory] = useState('');
@@ -15,8 +17,20 @@ export default function CreationForm() {
   const [text, setText] = useState('');
   const [progressPercent, setProgressPercent] = useState(0);
   const [imgUrl, setImgUrl] = useState('');
-
   const toast = useRef(null);
+  const { userProfile } = useSelector((state) => state.auth);
+  const { currentNewsItem, currentNewsItemId, selectedItem, isEditing } =
+    useSelector((state) => state.news);
+  const userStatus = userProfile ? userProfile?.status : '';
+
+  useEffect(() => {
+    if (currentNewsItemId !== '') {
+      setTitle(currentNewsItem.title);
+      setText(currentNewsItem.text);
+      setImgUrl(currentNewsItem.imgUrl);
+      setCategory(selectedItem);
+    }
+  }, [currentNewsItemId, currentNewsItem]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -57,21 +71,34 @@ export default function CreationForm() {
         console.log(error);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then(
-          (downloadUrl) => setImgUrl(downloadUrl),
-          console.log(imgUrl)
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) =>
+          setImgUrl(downloadUrl)
         );
       }
     );
 
     if (imgUrl !== '') {
-      db.collection(category).add({
-        title: title,
-        text: text,
-        imageFile: imageName,
-        imgUrl: imgUrl,
-        createdAt: firebaseTimestamp,
-      });
+      if (isEditing) {
+        db.collection(category).doc(currentNewsItemId).update({
+          title: title,
+          text: text,
+          imageFile: imageName,
+          imgUrl: imgUrl,
+          status: 'pending',
+          userId: userProfile.userId,
+          updatedAt: firebaseTimestamp,
+        });
+      } else {
+        db.collection(category).add({
+          title: title,
+          text: text,
+          imageFile: imageName,
+          imgUrl: imgUrl,
+          status: 'pending',
+          userId: userProfile.userId,
+          createdAt: firebaseTimestamp,
+        });
+      }
     } else {
       toast.current.show({
         severity: 'error',
@@ -91,15 +118,18 @@ export default function CreationForm() {
     'Intertainment',
   ];
 
-  const getLocalUser = JSON.parse(localStorage.getItem('user-profile'));
-
   return (
     <>
-      {getLocalUser ? (
+      {(userStatus === 'journalist') | (userStatus === 'admin') ? (
         <form onSubmit={handleSubmit} className="creation-form">
           <div className="form-title">
             <div>
-              <h5 style={{ color: 'orange' }}>News Article </h5>
+              <h5 style={{ color: 'orange' }}>
+                News Article{' '}
+                <sup style={{ color: 'green' }}>
+                  <EditIcon />
+                </sup>{' '}
+              </h5>
             </div>
             <div>
               <small style={{ color: 'orange' }}>By: Brandon Wanambisi</small>
@@ -173,8 +203,9 @@ export default function CreationForm() {
           </div>
         </form>
       ) : (
-        <Navigate to="/auth-login" />
+        <Navigate to="/unauthorized-page" />
       )}
+
       <Toast ref={toast} />
     </>
   );

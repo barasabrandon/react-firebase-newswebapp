@@ -4,6 +4,7 @@ import {
   Navigate,
   Route,
   Routes,
+  useNavigate,
 } from 'react-router-dom';
 
 import AdvertScreen from './screens/AdvertScreen';
@@ -21,12 +22,23 @@ import PodcastSamplePage from './screens/podcasts/PodcastSamplePage';
 import MediaUpload from './screens/Forms/MediaUpload';
 import BasicModal from './components/BasicModal';
 import DashboardLayout from './DashboardLayout';
-import TestMUIDatables from './screens/dashboard/TestMUIDatables';
 import UsersDashboard from './screens/dashboard/UsersDashboard';
 import DashboardLandingPage from './screens/dashboard/landingPage/DashboardLandingPage';
 import CkEditorTest from './screens/Forms/CkEditorTest';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkAuthUser } from './actions/authActions';
+import AuthLoginScreen from './screens/auth/AuthLoginScreen';
+import UnauthorizedScreen from './screens/auth/UnauthorizedScreen';
+import NewsDashboard from './screens/dashboard/news/NewsDashboard';
 
 function App() {
+  const dispatch = useDispatch();
+  const { userProfile } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(checkAuthUser());
+  }, []);
+
   return (
     <Router>
       <div>
@@ -56,6 +68,7 @@ function App() {
           </Route>
 
           {/* DASHBORAD  */}
+
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<DashboardLandingPage />} />
             <Route path="/dashboard/users" element={<UsersDashboard />} />
@@ -64,14 +77,16 @@ function App() {
               exact
               element={<MediaUpload />}
             />
-            <Route path="/dashboard/creation-form" element={<CreationForm />} />
             <Route
-              path="/dashboard/test-datables"
-              element={<TestMUIDatables />}
+              path="/dashboard/creation-form" // path="/dashboard/creation-form/:isEditing/:collectionName/:docId"
+              element={<CreationForm />}
             />
+            <Route path="/dashboard/news" element={<NewsDashboard />} />
             <Route path="/dashboard/test-ckeditor" element={<CkEditorTest />} />
           </Route>
-          {/* <Route path="/auth-login" element={<AuthLoginScreen />} /> */}
+
+          <Route path="/auth-login" element={<AuthLoginScreen />} />
+          <Route path="/unauthorized-page" element={<UnauthorizedScreen />} />
         </Routes>
       </div>
     </Router>

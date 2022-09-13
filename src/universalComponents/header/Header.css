@@ -88,6 +88,11 @@
   display: none;
 }
 
+.header__signin__container > a {
+  text-decoration: none;
+  color: white;
+}
+
 /* SMALL SCREEN */
 
 @media (max-width: 600px) {

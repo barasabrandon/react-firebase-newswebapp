@@ -118,9 +118,9 @@ export default function DashboardSidebar() {
                     </Link>
                   </li>
                   <li>
-                    <a href="#/">
+                    <Link to="/dashboard/news">
                       <i className="ion-arrow-graph-down-left"></i>News
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="#/">

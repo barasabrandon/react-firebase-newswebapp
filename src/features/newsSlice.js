@@ -10,6 +10,10 @@ const initialState = {
     { id: 5, icon: 'I', name: 'Intertainment', selected: false },
   ],
   selectedItem: '',
+  isEditing: false,
+  isLoading: false,
+  currentNewsItem: [],
+  currentNewsItemId: '',
 };
 
 export const newsSlice = createSlice({
@@ -27,9 +31,33 @@ export const newsSlice = createSlice({
       filteredCategory.selected = !filteredCategory.selected;
       state.selectedItem = filteredCategory.name;
     },
+    setCurrentNewsItem: (state, action) => {
+      state.isEditing = !state.isEditing;
+      state.currentNewsItemId = action.payload.documentId;
+      state.currentNewsItem = action.payload.documentData;
+    },
+    setSelectedNewsItem: (state, action) => {
+      state.selectedItem = 'National';
+    },
+    setIsLoading: (state, action) => {
+      state.isLoading = true;
+    },
+    setIsNotLoading: (state, action) => {
+      state.isLoading = false;
+    },
+    getAllNewsItem: (state, action) => {
+      console.log(action.payload);
+      // state.newsItems = state.newsItems.push(action.payload);
+    },
   },
 });
 
-export const { requestData } = newsSlice.actions;
+export const {
+  requestData,
+  setCurrentNewsItem,
+  setSelectedNewsItem,
+  setIsLoading,
+  setIsNotLoading,
+} = newsSlice.actions;
 
 export default newsSlice.reducer;

@@ -3,21 +3,21 @@ import { Link } from 'react-router-dom';
 
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import './Header.css';
 import HeaderSmallScreen from '../../components/home/HeaderSmallScreen';
+
+const getLocalUser = JSON.parse(localStorage.getItem('user-profile'));
 
 export default function Header() {
   const linkStyles = {
     color: 'white',
     textDecoration: 'none',
-  };
-
-  const getLocalUser = JSON.parse(localStorage.getItem('user-profile'));
-
-  const handleLogout = (e) => {
-    e.preventDefault();
-    localStorage.removeItem('user-profile');
   };
 
   return (
@@ -53,13 +53,14 @@ export default function Header() {
           <div className="header__content__searchIcon">
             <SearchIcon />
           </div>
-          <Link to="/auth-login" style={linkStyles}>
-            <div className="header__content__news">
-              {getLocalUser ? `${getLocalUser?.displayName}` : 'Sign in'}
-            </div>
-          </Link>
-          <div className="header__content__news" onClick={handleLogout}>
-            Logout
+          <div>
+            {getLocalUser ? (
+              <SelectItems />
+            ) : (
+              <div className="header__signin__container">
+                <Link to="/auth-login">Sign in</Link>
+              </div>
+            )}
           </div>
         </div>
         {/* SMALL SCREEN MENU ICON */}
@@ -72,3 +73,39 @@ export default function Header() {
     </>
   );
 }
+
+const SelectItems = () => {
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('user-profile');
+  };
+
+  return (
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">
+          {getLocalUser ? `${getLocalUser?.name}` : 'Sign in'}
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          label="Age"
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>
+            <Link to="/dashboard">Dashboard</Link>
+          </MenuItem>
+          <MenuItem value={20} onClick={handleLogout}>
+            Logout
+          </MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
+  );
+};

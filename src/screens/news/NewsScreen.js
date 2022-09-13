@@ -1,8 +1,10 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { checkAuthUser } from '../../actions/authActions';
 import Categories from '../../components/news/Categories';
 import NewsCard from '../../components/news/NewsCard';
 import NotFoundItems from '../../components/news/NotFoundItems';
+import { authIsLoggedIn } from '../../features/authSlice';
 import { requestData } from '../../features/newsSlice';
 import db from '../../firebase';
 

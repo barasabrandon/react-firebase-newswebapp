@@ -1,187 +1,299 @@
 import { Button } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
-import db, { auth, googleProvider, signInWithGoogle } from '../../firebase';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-
+import { Checkbox } from 'primereact/checkbox';
+import { InputText } from 'primereact/inputtext';
+import React from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import './AuthLoginScreen.css';
+import { Toast } from 'primereact/toast';
+import GoogleIcon from '@mui/icons-material/Google';
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut,
+} from 'firebase/auth';
+import {
+  getFirestore,
+  query,
+  getDocs,
+  collection,
+  where,
+  addDoc,
+} from 'firebase/firestore';
+import db, { auth, googleProvider } from '../../firebase';
+import { useRef } from 'react';
+import { authLoginUser } from '../../actions/authActions';
 
 export default function AuthLoginScreen() {
+  const { userProfile } = useSelector((state) => state.auth);
   const [isPassword, setIsPassword] = useState(true);
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isGoogleSign, setIsGoogleSign] = useState(false);
   const [name, setName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const toast = useRef(null);
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    setIsPassword(!isPassword);
+  const showError = (error) => {
+    toast.current.show({
+      severity: 'error',
+      summary: 'Error Message',
+      detail: error,
+    });
   };
 
-  const handleIsSingUpClick = (e) => {
+  const handleIsSignUpClick = (e) => {
     e.preventDefault();
     setIsSignUp(!isSignUp);
   };
 
-  const signInWithGoogle = () => {
-    auth
-      .signInWithPopup(googleProvider)
-      .then(async (res) => {
-        // const existingUser = db
-        //   .collection('users')
-        //   .where('userId', '==', res.user.uid);
-        const existingUser = await db
-          .collection('users')
-          .get()
-          .then((snapshot) =>
-            snapshot.docs.find((doc) => doc.data().userId === res.user.uid)
-          );
-
-        if (!existingUser) {
-          db.collection('users').add({
-            userId: res.user.uid,
-            name: res.user.displayName,
-            email: res.user.email,
-            imgUrl: res.user.photoURL,
-            status: 'user',
-            authProvider: 'google',
-          });
-        }
-        localStorage.setItem('user-profile', JSON.stringify(res.user));
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+  const googleProvider = new GoogleAuthProvider();
+  const signInWithGoogle = async () => {
+    try {
+      const res = await signInWithPopup(auth, googleProvider);
+      const user = res.user;
+      const q = query(
+        collection(db, 'users'),
+        where('email', '==', user.email)
+      );
+      const docs = await getDocs(q);
+      if (docs.docs.length === 0) {
+        const newlyCreatedUser = await addDoc(collection(db, 'users'), {
+          userId: user.uid,
+          name: user.displayName,
+          authProvider: 'google',
+          email: user.email,
+          status: 'user',
+        });
+        dispatch(authLoginUser(email));
+        navigate('/');
+      } else {
+        dispatch(authLoginUser(user.email));
+        navigate('/');
+      }
+    } catch (err) {
+      console.error(err);
+      showError(err.message);
+    }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSignupWithEmail = (e) => {
     e.preventDefault();
-
-    if (password !== '' && email !== '') {
+    if ((email === '') | (password === '')) {
+      showError('Fill all the fields');
+    } else {
       if (isSignUp) {
-        async function registerWithEmailAndPassword(name, email, password) {
-          try {
-            const res = await createUserWithEmailAndPassword(
-              auth,
-              email,
-              password
-            );
-            const user = res.user;
-            await db.collection('users').add({
-              userId: user.uid,
-              name,
-              email,
-              status: 'user',
-              authProvider: 'local',
-            });
-          } catch (err) {
-            console.error(err); // Email Is Being Used Another account
-            alert(err.message);
-          }
+        if (password !== confirmPassword) {
+          alert('Password Missmatch');
+        } else {
+          const registerWithEmailAndPassword = async (
+            name,
+            email,
+            password
+          ) => {
+            try {
+              const res = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+              );
+              const user = res.user;
+              await addDoc(collection(db, 'users'), {
+                userId: user.uid,
+                name,
+                authProvider: 'local',
+                email,
+                status: 'user',
+              });
+              dispatch(authLoginUser(email));
+              navigate('/');
+            } catch (err) {
+              console.error(err);
+              showError(err.message);
+            }
+          };
+          registerWithEmailAndPassword(name, email, password);
         }
-
-        registerWithEmailAndPassword(name, email, password);
       } else {
-        async function logInWithEmailAndPassword(email, password) {
+        const logInWithEmailAndPassword = async (email, password) => {
           try {
             await signInWithEmailAndPassword(auth, email, password);
+            dispatch(authLoginUser(email));
+            navigate('/');
           } catch (err) {
             console.error(err);
-            alert(err.message); //Invalid Password
+            const error = err.message; // Invalid password or Sign in with Google
+            showError(error);
           }
-        }
+        };
         logInWithEmailAndPassword(email, password);
       }
     }
   };
 
+  const handlePasswordResetLink = (e) => {
+    e.preventDefault();
+    const sendPasswordReset = async (email) => {
+      try {
+        await sendPasswordResetEmail(auth, email);
+        alert('Password reset link sent!');
+      } catch (err) {
+        console.error(err);
+        alert(err.message);
+      }
+    };
+    sendPasswordReset(email);
+  };
+
   return (
-    <div className="auth-screen">
-      <form action="" className="auth-form" onSubmit={handleSubmit}>
-        <div className="form-header">
-          <div className="form-header-logo">
-            <img src="images/logo.jpg" alt="Logo" />
-          </div>
-          <h3>Login Here</h3>
-        </div>
-        {isSignUp && (
-          <div className="usernmae-container">
-            <input
-              type="text"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-        )}
-        <div className="usernmae-container">
-          <input
-            type="text"
-            placeholder="Email address"
-            id="username"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="password-container">
-          <div className="password-container-input">
-            <input
-              type={isPassword ? 'password' : 'text'}
-              placeholder="Password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div
-            style={{ paddingTop: '12px', color: isPassword ? '' : 'blue' }}
-            onClick={handleClick}
-          >
-            <RemoveRedEyeIcon />
-          </div>
-        </div>
-        {isSignUp && (
-          <div className="password-container">
-            <div className="password-container-input">
-              <input
-                type={isPassword ? 'password' : 'text'}
-                placeholder="Password"
-                id="password"
+    <>
+      <div className="auth-login-screen">
+        <div className="flex align-items-center justify-content-center">
+          <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+            <div className="text-center mb-5">
+              <img
+                src="images/logo.jpg"
+                alt="hyper"
+                height={100}
+                className="mb-3"
               />
+
+              <div className="text-900 text-3xl font-medium mb-3">
+                Welcome Back
+              </div>
+              <span className="text-600 font-medium line-height-3">
+                {isSignUp ? 'Already' : "Don't"} have an account?
+              </span>
+              <Button
+                variant="text"
+                className="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
+                onClick={handleIsSignUpClick}
+              >
+                {isSignUp ? 'Login' : ' Create today!'}
+              </Button>
             </div>
-            <div
-              style={{ paddingTop: '12px', color: isPassword ? '' : 'blue' }}
-              onClick={handleClick}
-            >
-              <RemoveRedEyeIcon />
+
+            <div>
+              {isSignUp && (
+                <>
+                  <label
+                    htmlFor="email"
+                    className="block text-900 font-medium mb-2"
+                  >
+                    Name
+                  </label>
+                  <InputText
+                    type="text"
+                    className="w-full mb-3"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </>
+              )}
+              <label
+                htmlFor="email"
+                className="block text-900 font-medium mb-2"
+              >
+                Email
+              </label>
+              <InputText
+                id="email"
+                type="text"
+                className="w-full mb-3"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+
+              <label
+                htmlFor="password"
+                className="block text-900 font-medium mb-2"
+              >
+                Password
+              </label>
+              <InputText
+                id="password"
+                type="password"
+                className="w-full mb-3"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {isSignUp && (
+                <>
+                  <label
+                    htmlFor="password"
+                    className="block text-900 font-medium mb-2"
+                  >
+                    Confirm Password
+                  </label>
+                  <InputText
+                    id="password"
+                    type="password"
+                    className="w-full mb-3"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </>
+              )}
+
+              <div className="flex align-items-center justify-content-between mb-6">
+                <div className="flex align-items-center">
+                  <Checkbox
+                    id="rememberme"
+                    // onChange={(e) => setChecked(e.checked)}
+                    // checked={checked}
+                    className="mr-2"
+                  />
+                  <label htmlFor="rememberme">Remember me</label>
+                </div>
+                <a
+                  className="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer"
+                  onClick={handlePasswordResetLink}
+                >
+                  Forgot your password?
+                </a>
+              </div>
+              <Button
+                fullWidth
+                variant="contained"
+                className="mb-3"
+                onClick={handleSignupWithEmail}
+              >
+                Sign {isSignUp ? 'up' : ' in'}
+              </Button>
+              <div className="d-flex align-items-center justify-content-center mb-3">
+                <h2>Or</h2>
+              </div>
+              <Button
+                fullWidth
+                variant="outlined"
+                onClick={signInWithGoogle}
+                style={googleSignStyles}
+              >
+                <div>
+                  <GoogleIcon />
+                </div>
+                <div>Google Sign {isSignUp ? 'up' : ' in'}</div>
+              </Button>
             </div>
           </div>
-        )}
-        <div>
-          <Button variant="outlined" className="button" onClick={handleSubmit}>
-            {isSignUp ? 'Sign Up' : ' Sign in'}
-          </Button>
         </div>
-        <div className="or-container">Or</div>
-        <div className="social">
-          <div className="go" onClick={signInWithGoogle}>
-            <i className="fab fa-google"></i> Google{' '}
-            {isSignUp ? 'Sign Up' : ' Sign in'}
-          </div>
-        </div>
-        <div className="no-account-container">
-          <div> {isSignUp ? ' Already' : "Don't"} have an account?</div>
-          <div>
-            <Button variant="text" onClick={handleIsSingUpClick}>
-              {isSignUp ? ' Sign in' : 'Sign Up'}
-            </Button>
-          </div>
-        </div>
-      </form>
-    </div>
+      </div>
+      <Toast ref={toast} />
+    </>
   );
 }
+
+const googleSignStyles = {
+  display: 'flex',
+  gap: '1rem',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
