@@ -153,6 +153,10 @@
   cursor: pointer;
 }
 
+.wananchreporting-categories-title {
+  text-transform: uppercase;
+}
+
 @media (max-width: 600px) {
   .wananchireporting {
     margin: 1rem;
@@ -160,14 +164,29 @@
 
   .wananchireporting-become-one-container {
     width: 20rem;
+    border: 1px solid red;
   }
 
   .wananchireporting-content-div {
     grid-template-columns: 1fr;
-    width: 100%;
+    width: 20rem;
   }
 
   .wananch-video-container {
     grid-template-columns: 1fr;
+  }
+  .wananch-text-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .wananch-text-url-container {
+    height: 12rem;
+    width: 100%;
+  }
+
+  .wananch-text-url-container > img {
+    height: 12rem;
+    width: 100%;
+    object-fit: cover;
   }
 }

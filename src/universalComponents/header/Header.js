@@ -8,16 +8,28 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import CloseIcon from '@mui/icons-material/Close';
 
 import './Header.css';
 import HeaderSmallScreen from '../../components/home/HeaderSmallScreen';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleMenuOpen } from '../../features/headerSlice';
 
 const getLocalUser = JSON.parse(localStorage.getItem('user-profile'));
 
 export default function Header() {
+  const { isMenuOpen } = useSelector((state) => state.header);
+  const dispatch = useDispatch();
+
   const linkStyles = {
     color: 'white',
     textDecoration: 'none',
+  };
+
+  const handleMenuClick = (e) => {
+    e.preventDefault();
+    dispatch(toggleMenuOpen());
   };
 
   return (
@@ -64,12 +76,11 @@ export default function Header() {
           </div>
         </div>
         {/* SMALL SCREEN MENU ICON */}
-        <div className="header__small__menu__icon">
-          <MenuIcon />
+        <div className="header__small__menu__icon" onClick={handleMenuClick}>
+          {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
         </div>
       </div>
-
-      <HeaderSmallScreen />
+      {isMenuOpen && <HeaderSmallScreen />}
     </>
   );
 }

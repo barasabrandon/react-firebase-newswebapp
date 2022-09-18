@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 
 export default function DashboardSidebar() {
+  const [isSideOpen, setIsSideOpen] = useState(true);
+
+  const handleMenuClick = (e) => {
+    e.preventDefault();
+    setIsSideOpen(!isSideOpen);
+  };
+
   return (
     <>
       <section className="app">
         <aside className="sidebar">
-          <header>User Account</header>
+          <header>
+            <div> User Account </div>
+            <div>
+              <CancelOutlinedIcon onClick={handleMenuClick} />
+            </div>
+          </header>
           <nav className="sidebar-nav">
             <ul>
               <li>
@@ -71,6 +84,11 @@ export default function DashboardSidebar() {
                       Video
                     </Link>
                   </li>
+                  <li>
+                    <Link to="/dashboard/media-upload/exclusiveVideo">
+                      <i className="ion-ios-chatboxes-outline"></i>Podcasts
+                    </Link>
+                  </li>
                 </ul>
               </li>
               <li>
@@ -122,17 +140,17 @@ export default function DashboardSidebar() {
                       <i className="ion-arrow-graph-down-left"></i>News
                     </Link>
                   </li>
+
                   <li>
-                    <a href="#/">
-                      <i className="ion-ios-partlysunny-outline"></i>EXCLUSIVE
-                      VIDEOS
-                    </a>
+                    <Link to="/dashboard/media-upload">
+                      <i className="ion-ios-timer-outline"></i>EXCLUSIVE VIDEOS
+                    </Link>
                   </li>
                   <li>
-                    <a href="#/">
+                    <Link to="/dashboard/media-upload">
                       <i className="ion-ios-timer-outline"></i>WANANCHI
                       REPORTING
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="#/">
@@ -143,71 +161,10 @@ export default function DashboardSidebar() {
                 </ul>
               </li>
               <li>
-                <a href="#/">
-                  <i className="ion-ios-paper-outline"></i>{' '}
-                  <span className="">IT Support</span>
-                </a>
-                <ul className="nav-flyout">
-                  <li>
-                    <a href="#/">
-                      <i className="ion-ios-filing-outline"></i>File Cab
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#/">
-                      <i className="ion-ios-information-outline"></i>Infos
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#/">
-                      <i className="ion-ios-paperplane-outline"></i>Planes
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#/">
-                      <i className="ion-android-star-outline"></i>Shop
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="#/">
-                  <i className="ion-ios-navigate-outline"></i>{' '}
-                  <span className="">Finder</span>
-                </a>
-                <ul className="nav-flyout">
-                  <li>
-                    <a href="#/">
-                      <i className="ion-ios-flame-outline"></i>Burn
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#/">
-                      <i className="ion-ios-lightbulb-outline"></i>Bulbs
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#/">
-                      <i className="ion-ios-location-outline"></i>Where You
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#/">
-                      <i className="ion-ios-locked-outline"></i>On Lock
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#/">
-                      <i className="ion-ios-navigate-outline"></i>Ghostface
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="#/">
+                <Link to="/">
                   <i className="ion-ios-medical-outline"></i>{' '}
-                  <span className="">CLIENT WEB</span>
-                </a>
+                  <span className="">Home Page</span>
+                </Link>
               </li>
             </ul>
           </nav>

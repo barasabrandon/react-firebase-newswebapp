@@ -31,10 +31,8 @@ export default function NewsScreen() {
   return (
     <div className="news-screen">
       <div className="news-screen-container">
-        <div className="news-screen-categories-container">
-          <div>
-            <p>CATEGORIES</p>
-          </div>
+        <div>
+          <div>CATEGORIES</div>
           <div>
             <ul>
               {categories.map(({ selected, name, icon, id }) => (
@@ -67,4 +65,25 @@ export default function NewsScreen() {
       </div>
     </div>
   );
+}
+
+{
+  /* <div className="news-screen-categories-container">
+<div>
+  <p>CATEGORIES</p>
+</div>
+<div>
+  <ul>
+    {categories.map(({ selected, name, icon, id }) => (
+      <Categories
+        selected={selected}
+        name={name}
+        icon={icon}
+        id={id}
+        key={id}
+      />
+    ))}
+  </ul>
+</div>
+</div> */
 }

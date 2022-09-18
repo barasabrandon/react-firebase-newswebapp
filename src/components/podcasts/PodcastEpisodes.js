@@ -15,7 +15,7 @@ export default function PodcastEpisodes() {
     .doc(`${podcastId}`)
     .collection('podcast-audio')
     .get()
-    .then((snapshot) => setDocData(snapshot.docs));
+    .then((snapshot) => setDocData(snapshot?.docs));
   return (
     <>
       {docData === ''

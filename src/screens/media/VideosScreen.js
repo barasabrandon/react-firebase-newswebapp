@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import VideoCard from '../../components/media/VideoCard';
 import db from '../../firebase';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 import './VideosScreen.css';
 
@@ -14,11 +16,18 @@ export default function VideosScreen() {
   return (
     <div className="videos-screen">
       <div className="videos-screen-container">
-        {collectionData === ''
-          ? 'Loading...'
-          : collectionData.map((doc, index) => (
-              <VideoCard data={doc.data()} key={index} />
-            ))}
+        {collectionData === '' ? (
+          <div className="videos-screen-loading-spinner">
+            {' '}
+            <Box sx={{ display: 'flex' }}>
+              <CircularProgress />
+            </Box>
+          </div>
+        ) : (
+          collectionData.map((doc, index) => (
+            <VideoCard data={doc.data()} key={index} />
+          ))
+        )}
       </div>
     </div>
   );

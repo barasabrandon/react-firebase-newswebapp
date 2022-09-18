@@ -1,0 +1,17 @@
+.media-upload-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+.media-upload-dashboard-selection-buttons {
+  position: relative;
+  top: 0px;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}

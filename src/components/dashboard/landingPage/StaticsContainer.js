@@ -32,7 +32,7 @@ export default function StaticsContainer({ data }) {
         <div className="text-500">{data.footer}</div>
         <div style={styles}>
           <div className="text-green-500 font-medium">
-            <AddClickDialogue />
+            <AddClickDialogue name={data.name} />
           </div>
         </div>
       </div>

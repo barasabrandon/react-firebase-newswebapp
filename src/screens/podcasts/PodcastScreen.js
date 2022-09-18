@@ -4,6 +4,8 @@ import { useState } from 'react';
 import PodcastContainer from '../../components/podcasts/PodcastContainer';
 import PodcastFirstItem from '../../components/podcasts/PodcastFirstItem';
 import db from '../../firebase';
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
 
 import './PodcastScreen.css';
 
@@ -19,11 +21,15 @@ export default function PodcastScreen() {
     <div className="podcast-screen">
       <div className="podcast-screen-container">
         <PodcastFirstItem />
-        {documentData === ''
-          ? 'Loading...'
-          : documentData?.map((doc, index) => (
-              <PodcastContainer doc={doc} docId={doc.id} key={index} />
-            ))}
+        {documentData === '' ? (
+          <Box sx={{ width: '100%' }}>
+            <LinearProgress />
+          </Box>
+        ) : (
+          documentData?.map((doc, index) => (
+            <PodcastContainer doc={doc} docId={doc.id} key={index} />
+          ))
+        )}
       </div>
     </div>
   );

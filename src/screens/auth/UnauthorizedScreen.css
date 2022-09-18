@@ -49,7 +49,7 @@ html {
   font-size: 8em;
   text-shadow: 0 0 6px #8b4d1a;
 }
-
+/* 
 .p {
   margin-bottom: 0.5em;
   font-size: 1.75em;
@@ -74,7 +74,7 @@ html {
 
 .p > img {
   vertical-align: bottom;
-}
+} */
 
 @media screen and (max-width: 600px) {
   .wrapper {
@@ -89,7 +89,7 @@ html {
     background-size: 320px 185px;
   }
 
-  p:first-of-type {
+  /* p:first-of-type {
     margin-top: 12em;
-  }
+  } */
 }

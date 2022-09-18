@@ -10,8 +10,9 @@ import Dialog from '@mui/material/Dialog';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
 import { blue } from '@mui/material/colors';
+import { Link, useNavigate } from 'react-router-dom';
 
-const context = ['Videos', 'Audio', 'Text'];
+const context = ['video', 'audio'];
 
 export interface SimpleDialogProps {
   open: boolean;
@@ -41,7 +42,9 @@ function SimpleDialog(props: SimpleDialogProps) {
                 <AddIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={item} />
+            <Link style={linkStyles} to={`/dashboard/media-upload/${item}`}>
+              <ListItemText primary={item} style={textStyles} />
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -49,9 +52,10 @@ function SimpleDialog(props: SimpleDialogProps) {
   );
 }
 
-export default function AddClickDialogue() {
+export default function AddClickDialogue({ name }) {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(context[1]);
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -62,11 +66,23 @@ export default function AddClickDialogue() {
     setSelectedValue(value);
   };
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    navigate('/dashboard/media-upload/exclusiveVideo');
+  };
+
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        + Add
-      </Button>
+      {name === 'Exclusive Videos' ? (
+        <Button variant="outlined" onClick={handleClick}>
+          + Add
+        </Button>
+      ) : (
+        <Button variant="outlined" onClick={handleClickOpen}>
+          + Add
+        </Button>
+      )}
+
       <SimpleDialog
         selectedValue={selectedValue}
         open={open}
@@ -75,3 +91,6 @@ export default function AddClickDialogue() {
     </div>
   );
 }
+
+const textStyles = { textTransform: 'capitalize', color: 'black' };
+const linkStyles = { textDecoration: 'none' };

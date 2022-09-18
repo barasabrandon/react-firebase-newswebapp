@@ -68,6 +68,10 @@
   align-items: center;
 }
 
+.podcastsamplepage--podcastdetails-follow-btn {
+  cursor: pointer;
+}
+
 .podcastsamplepage-episodes {
   padding-bottom: 1rem;
   display: flex;

@@ -1,5 +1,7 @@
 import React, { useCallback } from 'react';
 import { useAudioPlayer } from 'react-use-audio-player';
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
 
 export default function PodcastAudioPlayer({ file }) {
   const { ready, loading, playing } = useAudioPlayer({
@@ -14,7 +16,9 @@ export default function PodcastAudioPlayer({ file }) {
   return (
     <>
       {loading ? (
-        'Loading audio ...'
+        <Box sx={{ width: '100%' }}>
+          <LinearProgress />
+        </Box>
       ) : (
         <div>
           <audio controls>

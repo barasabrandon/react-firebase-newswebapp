@@ -21,6 +21,11 @@
   overflow: auto;
 }
 
+.newsdashboard_control_icons {
+  display: flex;
+  flex-direction: row;
+}
+
 .newsdashboard_control_icons:hover {
   cursor: pointer;
 }

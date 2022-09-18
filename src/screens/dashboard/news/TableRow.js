@@ -8,19 +8,33 @@ import {
   deleteNewsItemAction,
 } from '../../../actions/newsAction';
 import { useNavigate } from 'react-router-dom';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import Tooltip from '@mui/material/Tooltip';
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import TableDataControlls from '../../../components/TableDataControlls';
 
 export default function TableRow({ docData, docId, collectionName }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleEditClick = (e) => {
     e.preventDefault();
-    dispatch(currentNewsItemAction({ id: docId, collectionName: 'National' }));
+    dispatch(currentNewsItemAction({ id: docId, collectionName }));
     navigate('/dashboard/creation-form');
   };
 
   const handleDeleteClick = (e) => {
     e.preventDefault();
-    dispatch(deleteNewsItemAction({ id: docId, collectionName: 'National' }));
+    dispatch(deleteNewsItemAction({ id: docId, collectionName }));
+  };
+
+  const handleViewClick = (e) => {
+    e.preventDefault();
+    navigate(`/news/${collectionName}/${docId}`);
+  };
+
+  const handleAddClick = (e) => {
+    e.preventDefault();
+    navigate('/dashboard/creation-form');
   };
 
   return (
@@ -36,13 +50,19 @@ export default function TableRow({ docData, docId, collectionName }) {
         </td>
         <td>{docData.status}</td>
         <td>
-          <span className="newsdashboard_control_icons">
-            <EditIcon style={editIconStyles} onClick={handleEditClick} />
-            <DeleteOutlineIcon
-              style={deleteIconStyles}
-              onClick={handleDeleteClick}
-            />
-          </span>
+          <TableDataControlls
+            editUrl={'/dashboard/creation-form'}
+            viewUrl={`/news/${collectionName}/${docId}`}
+            addView={'/dashboard/creation-form'}
+            editDispatchAction={currentNewsItemAction({
+              id: docId,
+              collectionName,
+            })}
+            deleteDispatchAction={deleteNewsItemAction({
+              id: docId,
+              collectionName,
+            })}
+          />
         </td>
       </tr>
     </>
@@ -50,5 +70,7 @@ export default function TableRow({ docData, docId, collectionName }) {
 }
 
 const deleteIconStyles = { color: 'red' };
-const editIconStyles = { color: 'green' };
+const editIconStyles = { color: 'orange' };
+const visibilityIcon = { color: 'green' };
+const addIcon = { color: 'blue' };
 const imageStyle = { borderRadius: '5px', height: '40px', width: '50px' };

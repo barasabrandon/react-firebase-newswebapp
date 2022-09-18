@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getNewsItemsAction } from '../../../actions/newsAction';
 import { requestData, setSelectedNewsItem } from '../../../features/newsSlice';
 import db from '../../../firebase';
 import ButtonSelection from './ButtonSelection';
@@ -11,20 +12,21 @@ import TableRow from './TableRow';
 export default function NewsDashboard() {
   const dispatch = useDispatch();
   const [data, setData] = useState('');
-  const { categories, selectedItem, isLoading } = useSelector(
+  const { categories, selectedItem, isLoading, newsItems } = useSelector(
     (state) => state.news
   );
-  const { userProfile } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(setSelectedNewsItem());
   }, []);
 
   useEffect(() => {
-    db.collection(selectedItem ? selectedItem : 'National')
-      .get()
-      .then((snapshot) => setData(snapshot?.docs));
-  }, [selectedItem, isLoading]);
+    dispatch(getNewsItemsAction(selectedItem));
+  }, [selectedItem]);
+
+  useEffect(() => {
+    setData(newsItems);
+  }, [selectedItem, isLoading, newsItems]);
 
   return (
     <div className="news-dashboard">

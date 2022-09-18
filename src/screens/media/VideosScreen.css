@@ -8,6 +8,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
+  min-height: 84.5vh;
 }
 
 .videos-screen-video-container {
@@ -51,12 +52,22 @@
   cursor: pointer;
 }
 
+.videos-screen-loading-spinner {
+  height: 100%;
+  width: 97.5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: none;
+}
+
 /* SMALL SCREEN */
 
 @media (max-width: 600px) {
   .videos-screen-container {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
+    min-height: 88vh;
   }
   .videos-screen-video-content-container {
     width: 19.5rem;

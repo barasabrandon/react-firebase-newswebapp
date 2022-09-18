@@ -12,7 +12,6 @@ export default function PodcastFirstItem() {
   };
   return (
     <div className="podcast-first-item">
-      <div>Podcasts</div>
       <div className="podcast-first-item-container">
         <div className="podcast-first-item-img-container">
           <img src="/images/news-images/kovacic.jpeg" alt="#Images" />
@@ -25,12 +24,10 @@ export default function PodcastFirstItem() {
             <h3>THE TEE TALK</h3>
           </div>
           <div>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-              voluptas necessitatibus sapiente pariatur maiores blanditiis ut,
-              quis itaque esse nam ipsum earum molestiae sequi nihil sed cum
-              dolorum laboriosam quod.
-            </p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
+            voluptas necessitatibus sapiente pariatur maiores blanditiis ut,
+            quis itaque esse nam ipsum earum molestiae sequi nihil sed cum
+            dolorum laboriosam quod.
           </div>
           <div>BY JEFF EVANS</div>
           <div

@@ -64,6 +64,25 @@
   width: 400px;
 }
 
+.news_loading_container {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  top: 4.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.news_loading_div {
+  height: 5rem;
+  width: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (max-width: 600px) {
   .sample-news-page-about-article {
     height: fit-content;

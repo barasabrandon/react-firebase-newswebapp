@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import db from '../../firebase';
@@ -33,7 +34,7 @@ export default function PodcastDetailsPage() {
       .collection(`${podcastCategory}`)
       .doc(`${podcastId}`)
       .collection('followers')
-      .add({ userId: ' newDate().getTime()' });
+      .add({ userId: 'knewDate().getTime()' });
   };
 
   return (

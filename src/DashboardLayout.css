@@ -44,7 +44,10 @@ Sidebar
   /* background-color: #09f; */
   background-image: linear-gradient(to right, blue, rgb(255, 94, 0));
   width: 100%;
-  display: block;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   padding: 0.75em 1em;
   text-transform: uppercase;
   font-weight: 600;

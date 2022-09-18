@@ -1,5 +1,6 @@
 import { doc, getDoc } from 'firebase/firestore';
 import {
+  getAllNewsItem,
   setCurrentNewsItem,
   setIsLoading,
   setIsNotLoading,
@@ -27,5 +28,14 @@ export const deleteNewsItemAction =
   async (dispatch) => {
     dispatch(setIsLoading());
     db.collection(collectionName).doc(id).delete();
+    db.collection(collectionName)
+      .get()
+      .then((snapshot) => dispatch(getAllNewsItem(snapshot?.docs)));
     dispatch(setIsNotLoading());
   };
+
+export const getNewsItemsAction = (collectionName) => async (dispatch) => {
+  db.collection(collectionName)
+    .get()
+    .then((snapshot) => dispatch(getAllNewsItem(snapshot?.docs)));
+};

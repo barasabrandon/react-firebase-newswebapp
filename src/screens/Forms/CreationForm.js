@@ -32,26 +32,16 @@ export default function CreationForm() {
     }
   }, [currentNewsItemId, currentNewsItem]);
 
+  const handleClearClick = (e) => {
+    e.preventDefault();
+    setTitle('');
+    setText('');
+    setImgUrl('');
+    setCategory('');
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    let timerInterval;
-    Swal.fire({
-      html: 'Uploading <b></b> seconds',
-      icon: 'success',
-      timer: 5000,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-        const b = Swal.getHtmlContainer().querySelector('b');
-        timerInterval = setInterval(() => {
-          b.textContent = Math.round(Swal.getTimerLeft() / 1000);
-        }, 100);
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
-      },
-    });
 
     const file = e.target[3]?.files[0];
     const date = new Date().getTime();
@@ -82,6 +72,7 @@ export default function CreationForm() {
         db.collection(category).doc(currentNewsItemId).update({
           title: title,
           text: text,
+          category: category,
           imageFile: imageName,
           imgUrl: imgUrl,
           status: 'pending',
@@ -92,6 +83,7 @@ export default function CreationForm() {
         db.collection(category).add({
           title: title,
           text: text,
+          category: category,
           imageFile: imageName,
           imgUrl: imgUrl,
           status: 'pending',
@@ -191,13 +183,18 @@ export default function CreationForm() {
           </div>
           <div className="buttons-container">
             <div>
-              <button type="submit" className="btn btn-primary mb-2 mt-2 ">
+              <button
+                className="btn btn-primary mb-2 mt-2 "
+                onClick={handleClearClick}
+              >
                 Clear
               </button>
             </div>
             <div>
               <button type="submit" className="btn btn-success mb-2 mt-2 ">
-                Submit
+                {progressPercent === 0
+                  ? 'Submit'
+                  : `Uploading...${progressPercent}%`}
               </button>
             </div>
           </div>

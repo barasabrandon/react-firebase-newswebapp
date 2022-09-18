@@ -77,7 +77,8 @@ export default function MediaUpload() {
 
   return (
     <>
-      {(getLocalUser.status === 'wananchi-reporter') |
+      {/* (getLocalUser.status === 'wananchi-reporter') */}
+      {(getLocalUser.status === 'journalist') |
       (getLocalUser.status === 'admin') ? (
         <div className="wananchi-form-video">
           <div className="wananchi-form-video-form">

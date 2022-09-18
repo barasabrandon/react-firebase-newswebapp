@@ -46,8 +46,7 @@ export const newsSlice = createSlice({
       state.isLoading = false;
     },
     getAllNewsItem: (state, action) => {
-      console.log(action.payload);
-      // state.newsItems = state.newsItems.push(action.payload);
+      state.newsItems = action.payload;
     },
   },
 });
@@ -58,6 +57,7 @@ export const {
   setSelectedNewsItem,
   setIsLoading,
   setIsNotLoading,
+  getAllNewsItem,
 } = newsSlice.actions;
 
 export default newsSlice.reducer;

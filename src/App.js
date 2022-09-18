@@ -21,6 +21,8 @@ import CreationForm from './screens/Forms/CreationForm';
 import PodcastSamplePage from './screens/podcasts/PodcastSamplePage';
 import MediaUpload from './screens/Forms/MediaUpload';
 import BasicModal from './components/BasicModal';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 import DashboardLayout from './DashboardLayout';
 import UsersDashboard from './screens/dashboard/UsersDashboard';
 import DashboardLandingPage from './screens/dashboard/landingPage/DashboardLandingPage';
@@ -30,12 +32,14 @@ import { checkAuthUser } from './actions/authActions';
 import AuthLoginScreen from './screens/auth/AuthLoginScreen';
 import UnauthorizedScreen from './screens/auth/UnauthorizedScreen';
 import NewsDashboard from './screens/dashboard/news/NewsDashboard';
+import MediaUploadDashboard from './screens/dashboard/mediaUpload/MediaUploadDashboard';
 
 function App() {
   const dispatch = useDispatch();
   const { userProfile } = useSelector((state) => state.auth);
 
   useEffect(() => {
+    Aos.init({ duration: 3000 }); // Aos -for Animate on scroll
     dispatch(checkAuthUser());
   }, []);
 
@@ -82,6 +86,10 @@ function App() {
               element={<CreationForm />}
             />
             <Route path="/dashboard/news" element={<NewsDashboard />} />
+            <Route
+              path="/dashboard/media-upload"
+              element={<MediaUploadDashboard />}
+            />
             <Route path="/dashboard/test-ckeditor" element={<CkEditorTest />} />
           </Route>
 

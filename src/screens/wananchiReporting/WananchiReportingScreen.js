@@ -29,7 +29,7 @@ export default function WananchiReportingScreen() {
         <JoinUs />
         <div className="wananchireporting-content-div">
           <div className="wananchireporting-categories-container">
-            <p className="wananchreporting-categories-title">Categories</p>
+            <p className="wananchreporting-categories-title">Select Categories</p>
             <ul className="wananchreporting-categories-title-ul">
               {mediaType.map(({ name, id, selected }) => (
                 <MediaType key={id} id={id} name={name} selected={selected} />
@@ -40,11 +40,13 @@ export default function WananchiReportingScreen() {
           <div className="wananchireporting-content-container">
             {mediaContent === 'Text' ? (
               wananchiData === '' ? (
-                // <h5>Loading...</h5>
-                <div className="loading-animation">
-                  <img src="/animations/fromNow.gif" alt="Loading..." />
+                <div>
+                  <h5>Loading...</h5>
                 </div>
               ) : (
+                // <div className="loading-animation">
+                //   <img src="/animations/fromNow.gif" alt="Loading..." />
+                // </div>
                 wananchiData.map((doc) => (
                   <TextWananchiReport
                     key={doc.id}
