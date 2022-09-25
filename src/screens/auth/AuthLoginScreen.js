@@ -28,6 +28,9 @@ import {
 import db, { auth, googleProvider } from '../../firebase';
 import { useRef } from 'react';
 import { authLoginUser } from '../../actions/authActions';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+import FaceIcon from '@mui/icons-material/Face';
 
 export default function AuthLoginScreen() {
   const { userProfile } = useSelector((state) => state.auth);
@@ -271,7 +274,7 @@ export default function AuthLoginScreen() {
               <div className="d-flex align-items-center justify-content-center mb-3">
                 <h2>Or</h2>
               </div>
-              <Button
+              {/* <Button
                 fullWidth
                 variant="outlined"
                 onClick={signInWithGoogle}
@@ -280,8 +283,20 @@ export default function AuthLoginScreen() {
                 <div>
                   <GoogleIcon />
                 </div>
-                <div>Google Sign {isSignUp ? 'up' : ' in'}</div>
-              </Button>
+                <div>Google Sign {isSignUp ? 'up' : ' in'}</div>\
+              </Button> */}
+              <div>
+                <Stack direction="row" spacing={1}>
+                  <Chip
+                    icon={<GoogleIcon />}
+                    label="Login with Google"
+                    variant="outlined"
+                    color="primary"
+                    style={chipIconStyles}
+                    onClick={signInWithGoogle}
+                  />
+                </Stack>
+              </div>
             </div>
           </div>
         </div>
@@ -297,3 +312,10 @@ const googleSignStyles = {
   justifyContent: 'center',
   alignItems: 'center',
 };
+const chipIconStyles = {
+  color: 'blue',
+  fontWeight: 'bold',
+  width: '100%',
+  cursor: 'pointer',
+};
+const chipBtnIconStyles = { textTransform: 'capitalize', cursor: 'pointer' };

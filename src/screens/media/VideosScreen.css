@@ -61,6 +61,77 @@
   overflow: none;
 }
 
+.video-card-footer-btns {
+  bottom: 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Video Card */
+.video-card {
+  background-color: white;
+  height: 23rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.video-card-video-container {
+  top: 0px;
+  position: relative;
+  height: 65%;
+  width: 100%;
+}
+.video-card-video-container > video {
+  height: 100%;
+  width: 100%;
+  top: 0px;
+  position: relative;
+  object-fit: cover;
+}
+
+.video-card-text-container {
+  height: 25%;
+  width: 100%;
+}
+
+.video-card-btns-container {
+  height: 10%;
+  width: 100%;
+}
+
+.video-card-btns-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-icons {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.video-comment-form {
+  display: flex;
+  align-items: center;
+}
+
+.video-comment-form-input {
+  flex: 1;
+}
+
+.comment-views-stats {
+  font-weight: bold;
+}
+
+.like-container {
+  width: 3rem;
+}
+
 /* SMALL SCREEN */
 
 @media (max-width: 600px) {
@@ -74,5 +145,11 @@
   }
   .videos-screen-video-description-container {
     font-size: 1.23rem;
+  }
+
+  .videos-screen-video-content-container > video {
+    object-fit: cover;
+    width: 10rem;
+    height: 100%;
   }
 }

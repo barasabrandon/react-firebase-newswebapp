@@ -16,5 +16,4 @@ export const headerSlice = createSlice({
 });
 
 export const { toggleMenuOpen } = headerSlice.actions;
-
 export default headerSlice.reducer;

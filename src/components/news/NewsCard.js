@@ -18,11 +18,11 @@ export default function NewsCard({ itemData, docId }) {
           </div>
         </div>
         <div>
-          {/* /news/:category/:id */}
+          {/* /news-page/:category/:id */}
 
           <p className="news-screen-news-title-h4-container">
             <Link
-              to={`/news/${itemData.category}/${docId}`}
+              to={`/news-page/${itemData.category}/${docId}`}
               className="news-screen-news-title-h4-container-link"
             >
               {itemData.title.slice(0, 50)}...

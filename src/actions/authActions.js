@@ -27,7 +27,8 @@ export const authLoginUser = (userEmail) => async (dispatch) => {
     const q = query(collection(db, 'users'), where('email', '==', userEmail));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      console.log('User Does not exist');
+      console.log(userEmail);
+      // console.log('User Does not exist');
     } else {
       docs.docs.forEach((doc) => {
         localStorage.setItem('user-profile', JSON.stringify(doc.data()));

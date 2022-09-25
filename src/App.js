@@ -4,7 +4,6 @@ import {
   Navigate,
   Route,
   Routes,
-  useNavigate,
 } from 'react-router-dom';
 
 import AdvertScreen from './screens/AdvertScreen';
@@ -14,7 +13,6 @@ import NewsScreen from './screens/news/NewsScreen';
 import PodcastScreen from './screens/podcasts/PodcastScreen';
 import EntertainmentScreen from './screens/recreation/EntertainmentScreen';
 import SportsScreen from './screens/recreation/SportsScreen';
-import SampleNewsPage from './screens/SampleNewsPage';
 import WananchiReportingScreen from './screens/wananchiReporting/WananchiReportingScreen';
 import Layout from './Layout';
 import CreationForm from './screens/Forms/CreationForm';
@@ -27,16 +25,16 @@ import DashboardLayout from './DashboardLayout';
 import UsersDashboard from './screens/dashboard/UsersDashboard';
 import DashboardLandingPage from './screens/dashboard/landingPage/DashboardLandingPage';
 import CkEditorTest from './screens/Forms/CkEditorTest';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { checkAuthUser } from './actions/authActions';
 import AuthLoginScreen from './screens/auth/AuthLoginScreen';
 import UnauthorizedScreen from './screens/auth/UnauthorizedScreen';
 import NewsDashboard from './screens/dashboard/news/NewsDashboard';
 import MediaUploadDashboard from './screens/dashboard/mediaUpload/MediaUploadDashboard';
+import NewsPage from './screens/NewsPage';
 
 function App() {
   const dispatch = useDispatch();
-  const { userProfile } = useSelector((state) => state.auth);
 
   useEffect(() => {
     Aos.init({ duration: 3000 }); // Aos -for Animate on scroll
@@ -50,7 +48,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/aderts" element={<AdvertScreen />} />
             <Route path="/news" element={<NewsScreen />} />
-            <Route path="/:screen/:category/:id" element={<SampleNewsPage />} />
+            <Route path="/news-page/:category/:id" element={<NewsPage />} />
             <Route path="/videos" element={<VideosScreen />} />
             <Route
               path="/live-media/:liveMediaCategory"
@@ -92,7 +90,6 @@ function App() {
             />
             <Route path="/dashboard/test-ckeditor" element={<CkEditorTest />} />
           </Route>
-
           <Route path="/auth-login" element={<AuthLoginScreen />} />
           <Route path="/unauthorized-page" element={<UnauthorizedScreen />} />
         </Routes>

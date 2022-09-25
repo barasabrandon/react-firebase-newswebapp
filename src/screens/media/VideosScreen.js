@@ -5,27 +5,32 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
 import './VideosScreen.css';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getExclusiveVideosAction } from '../../actions/exclusiveVideosAction';
 
 export default function VideosScreen() {
-  const [collectionData, setCollectionData] = useState('');
+  const dispatch = useDispatch();
+  const { exclusiveVideosItems } = useSelector(
+    (state) => state.exclusiveVideos
+  );
 
-  db.collection('Exclusive Videos')
-    .get()
-    .then((snapshot) => setCollectionData(snapshot.docs));
+  useEffect(() => {
+    dispatch(getExclusiveVideosAction());
+  }, []);
 
   return (
     <div className="videos-screen">
       <div className="videos-screen-container">
-        {collectionData === '' ? (
+        {exclusiveVideosItems === '' ? (
           <div className="videos-screen-loading-spinner">
-            {' '}
             <Box sx={{ display: 'flex' }}>
               <CircularProgress />
             </Box>
           </div>
         ) : (
-          collectionData.map((doc, index) => (
-            <VideoCard data={doc.data()} key={index} />
+          exclusiveVideosItems.map((doc, index) => (
+            <VideoCard data={doc.data()} key={index} videoId={doc.id} />
           ))
         )}
       </div>

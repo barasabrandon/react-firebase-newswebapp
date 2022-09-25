@@ -1,6 +1,7 @@
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-image: linear-gradient(to right, blue, rgb(255, 94, 0));
   height: 70px;
   color: white;
@@ -25,7 +26,7 @@
   cursor: pointer;
 }
 
-.header__small__menu__icon {
+.header__small__menu__icon__container {
   display: none;
 }
 
@@ -116,13 +117,15 @@
     margin-right: 0;
   }
 
-  .header__small__menu__icon {
+  .header__small__menu__icon__container {
     display: block;
-    margin-right: 30px;
-    width: 50px;
-    height: 30px;
-    position: absolute;
-    right: 0px;
+    height: 2rem;
+    width: 40px;
+  }
+
+  .header__small__menu__icon {
+    height: 2rem;
+    width: 40px;
   }
 
   .header__small__menu__icon__img {
@@ -132,6 +135,7 @@
   }
 
   .header-smallscreen-container {
+    position: fixed;
     z-index: 1;
     display: flex;
     flex-direction: column;

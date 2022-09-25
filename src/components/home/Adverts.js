@@ -7,13 +7,14 @@ function Adverts() {
   return (
     <div className="adverts">
       <div className="adverts__text">
-        <p className="adverts__textParagraph__title">
+        {/* <p className="adverts__textParagraph__title">
           Own land in Kimuka - Naserian Ridge, Land for Sale
         </p>
         <p>
           Naserian Ridge Is Guranteed to See Exponential Value Growth for the
           Keen Investor olivelimited.com
-        </p>
+        </p> */}
+        <img src="/images/adverts/advert-img.png" alt="Advert" />
       </div>
       <div className="adverts__buttons">
         <div className="adverts__openButton">Open</div>

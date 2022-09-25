@@ -21,6 +21,7 @@
     "dotenv": "^16.0.1",
     "firebase": "^9.6.2",
     "firebase-tools": "^10.0.1",
+    "millify": "^5.0.1",
     "moment": "^2.29.4",
     "mui-datatables": "^4.2.2",
     "postcss": "^8.4.16",

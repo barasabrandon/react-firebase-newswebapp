@@ -31,8 +31,10 @@ export default function NewsScreen() {
   return (
     <div className="news-screen">
       <div className="news-screen-container">
-        <div>
-          <div>CATEGORIES</div>
+        <div className="news-screen-categories-container">
+          <div className="news-screen-categories-container-title">
+            SELECT CATEGORY
+          </div>
           <div>
             <ul>
               {categories.map(({ selected, name, icon, id }) => (

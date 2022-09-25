@@ -12,7 +12,7 @@ export default function TextWananchiReport({ itemData, docId }) {
           <div className="wananch-text-description-container">
             <small>By newsApp Reporter</small>
             <Link
-              to={`/wananchi-reporting/${itemData.category}/${docId}`}
+              to={`/news-page/${itemData.category}/${docId}`}
               className="wananch-text-link"
             >
               <p>{itemData.title}</p>
