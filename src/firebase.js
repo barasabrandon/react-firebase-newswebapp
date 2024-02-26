@@ -4,13 +4,13 @@ import 'firebase/compat/auth';
 import 'firebase/compat/storage';
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID,
-  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
+  apiKey: 'AIzaSyCsK4-Ql17whJ-QL3hZAR922fowpN0M8Kc',
+  authDomain: 'news-a4831.firebaseapp.com',
+  projectId: 'news-a4831',
+  storageBucket: 'news-a4831.appspot.com',
+  messagingSenderId: '674807245225',
+  appId: '1:674807245225:web:a73ca9030fbeefc93ebcb8',
+  measurementId: 'G-GW2JP5D7F6',
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);

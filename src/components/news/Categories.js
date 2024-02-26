@@ -19,7 +19,6 @@ export default function Categories({ icon, selected, name, id }) {
         }
         onClick={handleClick}
       >
-        <span>{icon} </span>
         <span>{name}</span>
       </li>
     </>

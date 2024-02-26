@@ -68,24 +68,3 @@ export default function NewsScreen() {
     </div>
   );
 }
-
-{
-  /* <div className="news-screen-categories-container">
-<div>
-  <p>CATEGORIES</p>
-</div>
-<div>
-  <ul>
-    {categories.map(({ selected, name, icon, id }) => (
-      <Categories
-        selected={selected}
-        name={name}
-        icon={icon}
-        id={id}
-        key={id}
-      />
-    ))}
-  </ul>
-</div>
-</div> */
-}
